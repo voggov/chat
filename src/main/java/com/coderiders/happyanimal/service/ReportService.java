@@ -3,6 +3,7 @@ package com.coderiders.happyanimal.service;
 import com.coderiders.happyanimal.model.Report;
 import com.coderiders.happyanimal.model.dto.ReportDTO;
 import com.coderiders.happyanimal.repository.ReportRepository;
+import com.coderiders.happyanimal.service.mapper.ReportMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,27 +38,27 @@ public class ReportService {
 
     public List<ReportDTO> getAllReportsDTO() {
         return reportRepository.findAll().stream()
-                .map(Mapper::mapToReportDTO)
+                .map(ReportMapper::mapToReportDTO)
                 .collect(Collectors.toList());
     }
 
     public List<ReportDTO> getReportDTOByDate(String date) {
         return reportRepository.findByDate(date).stream()
-                .map(Mapper::mapToReportDTO)
+                .map(ReportMapper::mapToReportDTO)
                 .collect(Collectors.toList());
     }
 
     public List<ReportDTO> getReportDTOByUserName(String userName) {
         return reportRepository.findByUserName(userName).stream()
-                .map(Mapper::mapToReportDTO)
+                .map(ReportMapper::mapToReportDTO)
                 .collect(Collectors.toList());
     }
 
     public ReportDTO getReportDTOById(Long id) {
-        return Mapper.mapToReportDTO(Objects.requireNonNull(reportRepository.findFirstById(id).orElse(null)));
+        return ReportMapper.mapToReportDTO(Objects.requireNonNull(reportRepository.findFirstById(id).orElse(null)));
     }
 
     public Report reportDTOToReport(ReportDTO reportDTO) {
-        return Mapper.mapToReport(reportDTO);
+        return ReportMapper.mapToReport(reportDTO);
     }
 }

@@ -1,6 +1,6 @@
 package com.coderiders.happyanimal.model;
 
-import com.coderiders.happyanimal.model.enums.UserRole;
+import com.coderiders.happyanimal.enums.UserRole;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

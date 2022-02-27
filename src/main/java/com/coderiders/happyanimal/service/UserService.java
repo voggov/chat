@@ -1,5 +1,6 @@
 package com.coderiders.happyanimal.service;
 
+import com.coderiders.happyanimal.enums.UserRole;
 import com.coderiders.happyanimal.model.User;
 import com.coderiders.happyanimal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +13,23 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public void saveUser(User user){
+    public void saveUser(User user) {
         userRepository.save(user);
     }
 
-    public List<User> getAll(){
+    public List<User> getAll() {
         return userRepository.findAll();
     }
 
     public User getById(Long id) {
         return userRepository.findFirstById(id);
+    }
+
+    public List<User> getByName(String name) {
+        return userRepository.getAllByNameContainsIgnoreCase(name);
+    }
+
+    public List<User> getAllByRole(UserRole role) {
+        return userRepository.getAllByUserRole(role);
     }
 }

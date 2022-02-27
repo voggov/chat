@@ -1,6 +1,6 @@
 package com.coderiders.happyanimal.model.dto;
 
-import com.coderiders.happyanimal.model.User;
+import com.coderiders.happyanimal.enums.UserRole;
 import lombok.*;
 
 @Getter
@@ -8,9 +8,9 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReportDTO {
+public class UserDTO {
     private Long id;
-    private String date;
-    private String text;
-    private UserDTO userDTO;
+    private String name;
+    private UserRole userRole;
+    private int age;
 }

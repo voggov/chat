@@ -1,7 +1,7 @@
 package com.coderiders.happyanimal.controller;
 
 import com.coderiders.happyanimal.model.User;
-import com.coderiders.happyanimal.model.enums.UserRole;
+import com.coderiders.happyanimal.enums.UserRole;
 import com.coderiders.happyanimal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,8 +23,8 @@ public class UserController {
     @PostMapping(path = "/add")
     public String addUser(/*@RequestBody User user*/) {
         User user = new User();
-        user.setName("Test User");
-        user.setUserRole(UserRole.EMPLOYEE);
+        user.setName("Test Admin");
+        user.setUserRole(UserRole.ADMIN);
         user.setAge(19);
         user.setLogin("testLogin");
         user.setPassword("testPassword");
@@ -34,12 +34,17 @@ public class UserController {
     }
 
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<User> getAll(){
+    List<User> getAll() {
         return userService.getAll();
     }
 
-    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    User getById(@PathVariable Long id){
+    @GetMapping(path = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    User getById(@PathVariable Long id) {
         return userService.getById(id);
+    }
+
+    @GetMapping(path = "/search/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<User> getByName(@PathVariable String name) {
+        return userService.getByName(name);
     }
 }

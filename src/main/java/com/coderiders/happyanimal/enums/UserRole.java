@@ -1,4 +1,4 @@
-package com.coderiders.happyanimal.model.enums;
+package com.coderiders.happyanimal.enums;
 
 public enum UserRole {
     ADMIN,
