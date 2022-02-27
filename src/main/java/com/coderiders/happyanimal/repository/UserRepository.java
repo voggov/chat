@@ -7,10 +7,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, CrudRepository<User, Long> {
-    User findFirstById(Long id);
+    Optional<User> findFirstById(Long id);
     List<User> getAllByNameContainsIgnoreCase(String name);
     List<User> getAllByUserRole(UserRole role);
 }
