@@ -14,10 +14,13 @@ import javax.persistence.*;
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "date")
     private String date;
+
+    @Column(name = "text")
+    private String text;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
