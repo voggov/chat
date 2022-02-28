@@ -2,9 +2,11 @@ package com.coderiders.happyanimal.service.mapper;
 
 import com.coderiders.happyanimal.model.Report;
 import com.coderiders.happyanimal.model.dto.ReportDto;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class ReportMapper {
     private UserMapper userMapper;
     public ReportDto mapToReportDTO(Report report) {
