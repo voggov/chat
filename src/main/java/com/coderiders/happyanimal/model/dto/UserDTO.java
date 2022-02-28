@@ -13,4 +13,5 @@ public class UserDTO {
     private String name;
     private UserRole userRole;
     private int age;
+    private String login;
 }
