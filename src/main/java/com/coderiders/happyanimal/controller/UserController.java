@@ -1,0 +1,51 @@
+package com.coderiders.happyanimal.controller;
+
+import com.coderiders.happyanimal.enums.UserRole;
+import com.coderiders.happyanimal.model.User;
+import com.coderiders.happyanimal.model.dto.UserRsDto;
+import com.coderiders.happyanimal.service.UserService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@AllArgsConstructor
+@RequestMapping("/api/users")
+public class UserController {
+    private UserService userService;
+
+    @GetMapping(path = "/greeting", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String hello() {
+        return "hello";
+    }
+
+    @PostMapping(path = "/add")
+    public String addUser(/*@RequestBody User user*/) {
+        User user = new User();
+        user.setName("Test Admin");
+        user.setUserRole(UserRole.ADMIN);
+        user.setAge(19);
+        user.setLogin("testLogin");
+        user.setPassword("testPassword");
+
+        userService.saveUser(user);
+        return "added";
+    }
+
+    @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<UserRsDto> getAll() {
+        return userService.getAll();
+    }
+
+    @GetMapping(path = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    UserRsDto getById(@PathVariable Long id) {
+        return userService.getById(id);
+    }
+
+    @GetMapping(path = "/search/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<UserRsDto> getByName(@PathVariable String name) {
+        return userService.getByName(name);
+    }
+}

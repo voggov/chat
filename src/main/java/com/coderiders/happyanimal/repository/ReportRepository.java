@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ReportRepository extends JpaRepository<Report, Long>, CrudRepository<Report, Long> {
+public interface ReportRepository extends JpaRepository<Report, Long>{
     Optional<Report> findFirstById(Long id);
 
     List<Report> findByDate(String tag);

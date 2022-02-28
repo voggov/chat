@@ -1,6 +1,5 @@
 package com.coderiders.happyanimal.model.dto;
 
-import com.coderiders.happyanimal.model.User;
 import lombok.*;
 
 @Getter
@@ -8,9 +7,9 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReportDTO {
+public class ReportDto {
     private Long id;
     private String date;
     private String text;
-    private User user; //TODO: когда появится UserDTO, заменить тип User на UserDTO
+    private UserRsDto userDTO;
 }
