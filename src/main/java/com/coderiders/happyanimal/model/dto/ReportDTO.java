@@ -1,6 +1,5 @@
 package com.coderiders.happyanimal.model.dto;
 
-import com.coderiders.happyanimal.model.User;
 import lombok.*;
 
 @Getter

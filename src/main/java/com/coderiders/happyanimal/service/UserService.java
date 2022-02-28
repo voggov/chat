@@ -2,7 +2,9 @@ package com.coderiders.happyanimal.service;
 
 import com.coderiders.happyanimal.enums.UserRole;
 import com.coderiders.happyanimal.model.User;
+import com.coderiders.happyanimal.model.dto.UserResponseDTO;
 import com.coderiders.happyanimal.repository.UserRepository;
+import com.coderiders.happyanimal.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +19,8 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<UserResponseDTO> getAll() {
+        return UserMapper.mapUserResponseListToDtoList(userRepository.findAll());
     }
 
     public User getById(Long id) {
