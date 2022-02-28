@@ -11,7 +11,10 @@ import java.util.Optional;
 @Repository
 public interface ReportRepository extends JpaRepository<Report, Long>, CrudRepository<Report, Long> {
     Optional<Report> findFirstById(Long id);
+
     List<Report> findByDate(String tag);
+
     List<Report> findByUserName(String userName);
+
     List<Report> findAll();
 }
