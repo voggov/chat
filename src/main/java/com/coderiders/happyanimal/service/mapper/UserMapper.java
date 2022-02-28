@@ -42,6 +42,8 @@ public class UserMapper {
                 .id(user.getId())
                 .name(user.getName())
                 .age(user.getAge())
+                .userRole(user.getUserRole())
+                .login(user.getLogin())
                 .build();
     }
 
