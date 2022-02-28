@@ -2,6 +2,7 @@ package com.coderiders.happyanimal.controller;
 
 import com.coderiders.happyanimal.model.User;
 import com.coderiders.happyanimal.enums.UserRole;
+import com.coderiders.happyanimal.model.dto.UserResponseDTO;
 import com.coderiders.happyanimal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -34,7 +35,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<User> getAll() {
+    List<UserResponseDTO> getAll() {
         return userService.getAll();
     }
 
