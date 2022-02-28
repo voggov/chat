@@ -1,19 +1,19 @@
 package com.coderiders.happyanimal.controller;
 
-import com.coderiders.happyanimal.model.User;
 import com.coderiders.happyanimal.enums.UserRole;
+import com.coderiders.happyanimal.model.User;
 import com.coderiders.happyanimal.model.dto.UserRsDto;
 import com.coderiders.happyanimal.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/users")
 public class UserController {
-    @Autowired
     private UserService userService;
 
     @GetMapping(path = "/greeting", produces = MediaType.APPLICATION_JSON_VALUE)
