@@ -1,9 +1,10 @@
 package com.coderiders.happyanimal.service;
 
 import com.coderiders.happyanimal.model.Report;
-import com.coderiders.happyanimal.model.dto.ReportDTO;
+import com.coderiders.happyanimal.model.dto.ReportDto;
 import com.coderiders.happyanimal.repository.ReportRepository;
 import com.coderiders.happyanimal.service.mapper.ReportMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class ReportService {
-    @Autowired
     private ReportRepository reportRepository;
+
+    private ReportMapper reportMapper;
 
     public void saveReport(Report report) {
         reportRepository.save(report);
@@ -36,29 +39,29 @@ public class ReportService {
         return reportRepository.findFirstById(id).orElse(null);
     }
 
-    public List<ReportDTO> getAllReportsDTO() {
+    public List<ReportDto> getAllReportsDTO() {
         return reportRepository.findAll().stream()
-                .map(ReportMapper::mapToReportDTO)
+                .map(report -> reportMapper.mapToReportDTO(report))
                 .collect(Collectors.toList());
     }
 
-    public List<ReportDTO> getReportDTOByDate(String date) {
+    public List<ReportDto> getReportDTOByDate(String date) {
         return reportRepository.findByDate(date).stream()
-                .map(ReportMapper::mapToReportDTO)
+                .map(report -> reportMapper.mapToReportDTO(report))
                 .collect(Collectors.toList());
     }
 
-    public List<ReportDTO> getReportDTOByUserName(String userName) {
+    public List<ReportDto> getReportDTOByUserName(String userName) {
         return reportRepository.findByUserName(userName).stream()
-                .map(ReportMapper::mapToReportDTO)
+                .map(report -> reportMapper.mapToReportDTO(report))
                 .collect(Collectors.toList());
     }
 
-    public ReportDTO getReportDTOById(Long id) {
-        return ReportMapper.mapToReportDTO(Objects.requireNonNull(reportRepository.findFirstById(id).orElse(null)));
+    public ReportDto getReportDTOById(Long id) {
+        return reportMapper.mapToReportDTO(Objects.requireNonNull(reportRepository.findFirstById(id).orElse(null)));
     }
 
-    public Report reportDTOToReport(ReportDTO reportDTO) {
-        return ReportMapper.mapToReport(reportDTO);
+    public Report reportDTOToReport(ReportDto reportDTO) {
+        return reportMapper.mapToReport(reportDTO);
     }
 }

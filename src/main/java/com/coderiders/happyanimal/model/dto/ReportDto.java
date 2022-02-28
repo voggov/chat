@@ -7,9 +7,9 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReportDTO {
+public class ReportDto {
     private Long id;
     private String date;
     private String text;
-    private UserResponseDTO userDTO;
+    private UserRsDto userDTO;
 }

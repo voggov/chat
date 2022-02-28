@@ -2,7 +2,7 @@ package com.coderiders.happyanimal.controller;
 
 import com.coderiders.happyanimal.model.User;
 import com.coderiders.happyanimal.enums.UserRole;
-import com.coderiders.happyanimal.model.dto.UserResponseDTO;
+import com.coderiders.happyanimal.model.dto.UserRsDto;
 import com.coderiders.happyanimal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -35,17 +35,17 @@ public class UserController {
     }
 
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<UserResponseDTO> getAll() {
+    List<UserRsDto> getAll() {
         return userService.getAll();
     }
 
     @GetMapping(path = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    User getById(@PathVariable Long id) {
+    UserRsDto getById(@PathVariable Long id) {
         return userService.getById(id);
     }
 
     @GetMapping(path = "/search/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<User> getByName(@PathVariable String name) {
+    List<UserRsDto> getByName(@PathVariable String name) {
         return userService.getByName(name);
     }
 }

@@ -1,30 +1,28 @@
 package com.coderiders.happyanimal.service.mapper;
 
 import com.coderiders.happyanimal.model.User;
-import com.coderiders.happyanimal.model.dto.UserRequestDTO;
-import com.coderiders.happyanimal.model.dto.UserResponseDTO;
+import com.coderiders.happyanimal.model.dto.UserRqDto;
+import com.coderiders.happyanimal.model.dto.UserRsDto;
 import com.coderiders.happyanimal.repository.UserRepository;
-import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Component
+@AllArgsConstructor
 public class UserMapper {
-    private static UserRepository repository;
+    private final UserRepository repository;
 
-    public UserMapper(UserRepository repository) {
-        UserMapper.repository = repository;
-    }
-
-    public static List<UserResponseDTO> mapUserListToDtoList(Iterable<User> users) {
-        List<UserResponseDTO> dtos = new ArrayList<>();
+    public List<UserRsDto> mapUserListToDtoList(Iterable<User> users) {
+        List<UserRsDto> dtos = new ArrayList<>();
         users.forEach(user -> dtos.add(mapToResponseDto(user)));
         return dtos;
     }
 
-    public static UserRequestDTO mapToRequestDto(User user) {
-        return UserRequestDTO.builder()
+    public UserRqDto mapToRequestDto(User user) {
+        return UserRqDto.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .age(user.getAge())
@@ -33,12 +31,12 @@ public class UserMapper {
                 .build();
     }
 
-    public static User mapToUser(UserResponseDTO dto) {
+    public User mapToUser(UserRsDto dto) {
         return repository.getById(dto.getId());
     }
 
-    public static UserResponseDTO mapToResponseDto(User user) {
-        return UserResponseDTO.builder()
+    public UserRsDto mapToResponseDto(User user) {
+        return UserRsDto.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .age(user.getAge())
