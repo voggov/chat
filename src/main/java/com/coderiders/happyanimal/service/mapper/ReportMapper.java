@@ -21,7 +21,7 @@ public class ReportMapper {
         report.setId(reportDTO.getId());
         report.setDate(reportDTO.getDate());
         report.setText(reportDTO.getText());
-        report.setUser(UserMapper.mapToUser((UserRequestDTO) reportDTO.getUserDTO()));
+        report.setUser(UserMapper.mapToUser(reportDTO.getUserDTO()));
         return report;
     }
 }

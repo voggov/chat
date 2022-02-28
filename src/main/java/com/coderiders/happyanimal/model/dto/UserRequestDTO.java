@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRequestDTO implements UserDTO {
+public class UserRequestDTO {
     private Long id;
     private String name;
     private UserRole userRole;

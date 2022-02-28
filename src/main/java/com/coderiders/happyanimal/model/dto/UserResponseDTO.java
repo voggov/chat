@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponseDTO implements UserDTO{
+public class UserResponseDTO {
     private Long id;
     private String name;
     private UserRole userRole;

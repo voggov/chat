@@ -20,7 +20,7 @@ public class UserService {
     }
 
     public List<UserResponseDTO> getAll() {
-        return UserMapper.mapUserResponseListToDtoList(userRepository.findAll());
+        return UserMapper.mapUserListToDtoList(userRepository.findAll());
     }
 
     public User getById(Long id) {

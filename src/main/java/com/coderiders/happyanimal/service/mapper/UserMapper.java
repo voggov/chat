@@ -3,12 +3,21 @@ package com.coderiders.happyanimal.service.mapper;
 import com.coderiders.happyanimal.model.User;
 import com.coderiders.happyanimal.model.dto.UserRequestDTO;
 import com.coderiders.happyanimal.model.dto.UserResponseDTO;
+import com.coderiders.happyanimal.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class UserMapper {
-    public static List<UserResponseDTO> mapUserResponseListToDtoList(Iterable<User> users) {
+    private static UserRepository repository;
+
+    public UserMapper(UserRepository repository) {
+        UserMapper.repository = repository;
+    }
+
+    public static List<UserResponseDTO> mapUserListToDtoList(Iterable<User> users) {
         List<UserResponseDTO> dtos = new ArrayList<>();
         users.forEach(user -> dtos.add(mapToResponseDto(user)));
         return dtos;
@@ -24,14 +33,8 @@ public class UserMapper {
                 .build();
     }
 
-    public static User mapToUser(UserRequestDTO dto) {
-        return User.builder()
-                .id(dto.getId())
-                .name(dto.getName())
-                .age(dto.getAge())
-                .login(dto.getLogin())
-                .password(dto.getPassword())
-                .build();
+    public static User mapToUser(UserResponseDTO dto) {
+        return repository.getById(dto.getId());
     }
 
     public static UserResponseDTO mapToResponseDto(User user) {

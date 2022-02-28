@@ -11,5 +11,5 @@ public class ReportDTO {
     private Long id;
     private String date;
     private String text;
-    private UserDTO userDTO;
+    private UserResponseDTO userDTO;
 }
