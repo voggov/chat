@@ -4,7 +4,9 @@ import com.coderiders.happyanimal.model.Animal;
 import com.coderiders.happyanimal.model.dto.AnimalDto;
 import com.coderiders.happyanimal.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
+@Component
 @AllArgsConstructor
 public class AnimalMapper {
     private UserRepository userRepository;
