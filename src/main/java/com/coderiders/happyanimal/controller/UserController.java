@@ -33,6 +33,11 @@ public class UserController {
         return animalService.saveAnimal(animalDto, userId);
     }
 
+    @GetMapping(path = "/{userId}/animals")
+    public List<AnimalDto> getUserAnimals(@PathVariable Long userId) {
+        return animalService.getAllByUserId(userId);
+    }
+
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     List<UserRsDto> getAll() {
         return userService.getAll();
