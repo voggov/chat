@@ -34,8 +34,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    /*
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Animal> animals;
-    */
+    private List<Report> reports;
+
 }

@@ -1,5 +1,6 @@
 package com.coderiders.happyanimal.service.mapper;
 
+import com.coderiders.happyanimal.enums.UserRole;
 import com.coderiders.happyanimal.model.User;
 import com.coderiders.happyanimal.model.dto.UserRqDto;
 import com.coderiders.happyanimal.model.dto.UserRsDto;
@@ -23,7 +24,6 @@ public class UserMapper {
 
     public UserRqDto mapToRequestDto(User user) {
         return UserRqDto.builder()
-                .id(user.getId())
                 .name(user.getName())
                 .age(user.getAge())
                 .login(user.getLogin())
@@ -33,6 +33,16 @@ public class UserMapper {
 
     public User mapToUser(UserRsDto dto) {
         return repository.getById(dto.getId());
+    }
+
+    public User mapToUser(UserRqDto dto) {
+        return User.builder()
+                .name(dto.getName())
+                .age(dto.getAge())
+                .login(dto.getLogin())
+                .password(dto.getPassword())
+                .userRole(UserRole.EMPLOYEE)
+                .build();
     }
 
     public UserRsDto mapToResponseDto(User user) {
