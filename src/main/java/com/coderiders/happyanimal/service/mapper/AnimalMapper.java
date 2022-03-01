@@ -6,10 +6,19 @@ import com.coderiders.happyanimal.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 @AllArgsConstructor
 public class AnimalMapper {
     private UserRepository userRepository;
+    public List<AnimalDto> toDtoList(Iterable<Animal> animalList){
+        List<AnimalDto> dtoList = new ArrayList<>();
+        animalList.forEach(animal -> dtoList.add(toDto(animal)));
+        return dtoList;
+    }
+
     public Animal toAnimal(AnimalDto dto, Long userId){
         return Animal.builder()
                 .name(dto.getName())
