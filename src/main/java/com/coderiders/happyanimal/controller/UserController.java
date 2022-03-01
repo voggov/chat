@@ -1,9 +1,9 @@
 package com.coderiders.happyanimal.controller;
 
-import com.coderiders.happyanimal.enums.UserRole;
-import com.coderiders.happyanimal.model.User;
+import com.coderiders.happyanimal.model.dto.AnimalDto;
 import com.coderiders.happyanimal.model.dto.UserRqDto;
 import com.coderiders.happyanimal.model.dto.UserRsDto;
+import com.coderiders.happyanimal.service.AnimalService;
 import com.coderiders.happyanimal.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -16,6 +16,7 @@ import java.util.List;
 @RequestMapping("/api/user")
 public class UserController {
     private UserService userService;
+    private AnimalService animalService;
 
     @GetMapping(path = "/greeting", produces = MediaType.APPLICATION_JSON_VALUE)
     public String hello() {
@@ -27,12 +28,17 @@ public class UserController {
         return userService.saveUser(userForm);
     }
 
+    @PostMapping(path = "/{userId}/animals/add")
+    public AnimalDto addAnimal(@RequestBody AnimalDto animalDto, @PathVariable Long userId) {
+        return animalService.saveAnimal(animalDto, userId);
+    }
+
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     List<UserRsDto> getAll() {
         return userService.getAll();
     }
 
-    @GetMapping(path = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     UserRsDto getById(@PathVariable Long id) {
         return userService.getById(id);
     }

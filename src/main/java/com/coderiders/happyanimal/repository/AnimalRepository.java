@@ -7,7 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AnimalRepository extends JpaRepository<Animal, Long>, CrudRepository<Animal, Long> {
-
     Animal findFirstById(Long id);
-
 }
