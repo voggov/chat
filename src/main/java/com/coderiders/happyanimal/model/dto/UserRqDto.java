@@ -9,9 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRqDto {
-    private Long id;
     private String name;
-    private UserRole userRole;
     private int age;
     private String login;
     private String password;

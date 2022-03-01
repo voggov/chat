@@ -2,6 +2,7 @@ package com.coderiders.happyanimal.controller;
 
 import com.coderiders.happyanimal.enums.UserRole;
 import com.coderiders.happyanimal.model.User;
+import com.coderiders.happyanimal.model.dto.UserRqDto;
 import com.coderiders.happyanimal.model.dto.UserRsDto;
 import com.coderiders.happyanimal.service.UserService;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/users")
+@RequestMapping("/api/user")
 public class UserController {
     private UserService userService;
 
@@ -21,17 +22,9 @@ public class UserController {
         return "hello";
     }
 
-    @PostMapping(path = "/add")
-    public String addUser(/*@RequestBody User user*/) {
-        User user = new User();
-        user.setName("Test Admin");
-        user.setUserRole(UserRole.ADMIN);
-        user.setAge(19);
-        user.setLogin("testLogin");
-        user.setPassword("testPassword");
-
-        userService.saveUser(user);
-        return "added";
+    @PostMapping(path = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserRsDto addUser(@RequestBody UserRqDto userForm) {
+        return userService.saveUser(userForm);
     }
 
     @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)

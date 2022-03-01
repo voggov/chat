@@ -10,20 +10,20 @@ import org.springframework.stereotype.Service;
 public class ReportMapper {
     private UserMapper userMapper;
     public ReportDto mapToReportDTO(Report report) {
-        ReportDto reportDTO = new ReportDto();
-        reportDTO.setId(report.getId());
-        reportDTO.setDate(report.getDate());
-        reportDTO.setText(report.getText());
-        reportDTO.setUserDTO(userMapper.mapToResponseDto(report.getUser()));
-        return reportDTO;
+        return ReportDto.builder()
+                .id(report.getId())
+                .date(report.getDate())
+                .text(report.getText())
+                .userDTO(userMapper.mapToResponseDto(report.getUser()))
+                .build();
     }
 
     public Report mapToReport(ReportDto reportDTO) {
-        Report report = new Report();
-        report.setId(reportDTO.getId());
-        report.setDate(reportDTO.getDate());
-        report.setText(reportDTO.getText());
-        report.setUser(userMapper.mapToUser(reportDTO.getUserDTO()));
-        return report;
+        return Report.builder()
+                .id(reportDTO.getId())
+                .date(reportDTO.getDate())
+                .text(reportDTO.getText())
+                .user(userMapper.mapToUser(reportDTO.getUserDTO()))
+                .build();
     }
 }
