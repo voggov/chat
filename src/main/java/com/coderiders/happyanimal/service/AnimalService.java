@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -36,8 +37,10 @@ public class AnimalService {
     }
 
     @Transactional
-    public List<Animal> getAll() {
-        return animalRepository.findAll();
+    public List<AnimalDto> getAll() {
+        return animalRepository.findAll().stream()
+                .map(animal -> mapper.toDto(animal))
+                .collect(Collectors.toList());
     }
 
     @Transactional

@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/user")
+@RequestMapping("/api")
 public class UserController {
     private UserService userService;
     private AnimalService animalService;
@@ -25,7 +25,7 @@ public class UserController {
         return "hello";
     }
 
-    @PostMapping(path = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/user/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserRsDto addUser(@RequestBody UserRqDto userForm) {
         return userService.saveUser(userForm);
     }
@@ -48,6 +48,11 @@ public class UserController {
     @GetMapping(path = "/reports/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ReportDto> getAllReports() {
         return reportService.getAllReportsDTO();
+    }
+
+    @GetMapping(path = "/animals/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<AnimalDto> getAllAnimals() {
+        return animalService.getAll();
     }
 
     @GetMapping(path = "/{userId}/reports", produces = MediaType.APPLICATION_JSON_VALUE)
