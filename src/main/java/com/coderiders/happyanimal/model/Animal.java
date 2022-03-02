@@ -3,6 +3,7 @@ package com.coderiders.happyanimal.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,6 +26,9 @@ public class Animal {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToMany
+    private List<Task> tasks;
 
     @Column(name = "age")
     private int age;

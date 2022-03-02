@@ -23,7 +23,8 @@ public class AnimalService {
 
     @Transactional
     public AnimalDto saveAnimal(AnimalDto animalDto, Long userId) {
-        Animal animal = mapper.toAnimal(animalDto, userId);
+        Animal animal = mapper.toAnimal(animalDto);
+        animal.setUser(userRepository.getById(userId));
         animalRepository.save(animal);
         return mapper.toDto(animalRepository.findFirstById(animal.getId()).orElse(null));
     }
@@ -39,6 +40,7 @@ public class AnimalService {
         return animalRepository.findAll();
     }
 
+    @Transactional
     public Animal getById(Long id) {
         return animalRepository.findFirstById(id).orElse(null);
     }
