@@ -25,6 +25,7 @@ public class UserMapper {
     public UserRqDto mapToRequestDto(User user) {
         return UserRqDto.builder()
                 .name(user.getName())
+                .gender(user.getGender())
                 .age(user.getAge())
                 .login(user.getLogin())
                 .password(user.getPassword())
@@ -38,6 +39,7 @@ public class UserMapper {
     public User mapToUser(UserRqDto dto) {
         return User.builder()
                 .name(dto.getName())
+                .gender(dto.getGender())
                 .age(dto.getAge())
                 .login(dto.getLogin())
                 .password(dto.getPassword())
@@ -49,6 +51,7 @@ public class UserMapper {
         return UserRsDto.builder()
                 .id(user.getId())
                 .name(user.getName())
+                .gender(user.getGender())
                 .age(user.getAge())
                 .userRole(user.getUserRole())
                 .login(user.getLogin())
