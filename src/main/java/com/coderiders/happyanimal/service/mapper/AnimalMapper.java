@@ -22,6 +22,7 @@ public class AnimalMapper {
     public Animal toAnimal(AnimalDto dto, Long userId){
         return Animal.builder()
                 .name(dto.getName())
+                .gender(dto.getGender())
                 .age(dto.getAge())
                 .height(dto.getHeight())
                 .weight(dto.getWeight())
@@ -37,6 +38,7 @@ public class AnimalMapper {
         return AnimalDto.builder()
                 .id(animal.getId())
                 .name(animal.getName())
+                .gender(animal.getGender())
                 .age(animal.getAge())
                 .height(animal.getHeight())
                 .weight(animal.getWeight())

@@ -10,6 +10,7 @@ import lombok.*;
 public class AnimalDto {
     private Long id;
     private String name;
+    private String gender;
     private int age;
     private int height;
     private double weight;

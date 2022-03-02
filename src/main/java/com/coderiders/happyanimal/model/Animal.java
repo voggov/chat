@@ -19,6 +19,9 @@ public class Animal {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "gender")
+    private String gender;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
