@@ -17,7 +17,7 @@ public class AnimalMapper {
         return dtoList;
     }
 
-    List<Animal> toAnimalList(Iterable<AnimalDto> dtos) {
+    public List<Animal> toAnimalList(Iterable<AnimalDto> dtos) {
         List<Animal> animals = new ArrayList<>();
         dtos.forEach(animalDto -> animals.add(toAnimal(animalDto)));
         return animals;

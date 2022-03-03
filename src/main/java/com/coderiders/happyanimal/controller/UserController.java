@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping(path = "/tasks/add", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void addTask(@RequestBody TaskDto taskDto) {
+    public void addTask(@RequestBody TaskRqDto taskDto) {
         taskService.saveTask(taskDto);
     }
 
@@ -61,7 +61,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/{userId}/tasks", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<List<TaskDto>> getUserTasks(@PathVariable Long userId) {
+    public List<List<TaskRqDto>> getUserTasks(@PathVariable Long userId) {
         return taskService.getByUserId(userId);
     }
 
@@ -70,9 +70,19 @@ public class UserController {
         return animalService.getAllByUserId(userId);
     }
 
-    @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    List<UserRsDto> getAll() {
+    @GetMapping(path = "/animal/{animalId}/tasks")
+    public List<TaskRsDto> getAnimalTasks(@PathVariable Long animalId) {
+        return animalService.getAnimalTasks(animalId);
+    }
+
+    @GetMapping(path = "/users/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<UserRsDto> getAllUsers() {
         return userService.getAll();
+    }
+
+    @GetMapping(path = "/tasks/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<TaskRqDto> getAllTasks() {
+        return taskService.getAll();
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

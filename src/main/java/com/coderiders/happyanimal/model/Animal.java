@@ -27,7 +27,7 @@ public class Animal {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "animals")
     private List<Task> tasks;
 
     @Column(name = "age")
