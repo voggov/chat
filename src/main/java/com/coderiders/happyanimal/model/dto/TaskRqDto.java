@@ -9,7 +9,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskDto {
+public class TaskRqDto {
     private String type;
     private String dateTime;
     private String state;
