@@ -28,7 +28,7 @@ public class AnimalService {
         Animal animal = animalMapper.toAnimal(animalDto);
         animal.setUser(userRepository.getById(userId));
         animalRepository.save(animal);
-        return animalMapper.toDto(animalRepository.findFirstById(animal.getId()).orElse(null));
+        return animalMapper.toDto(animalRepository.findFirstById(animal.getId()).orElseThrow());
     }
 
     @Transactional
