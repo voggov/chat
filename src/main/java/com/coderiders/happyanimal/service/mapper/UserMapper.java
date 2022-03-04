@@ -7,6 +7,7 @@ import com.coderiders.happyanimal.model.dto.UserRsDto;
 import com.coderiders.happyanimal.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class UserMapper {
                 .password(user.getPassword())
                 .build();
     }
-
+    @Transactional
     public User mapToUser(UserRsDto dto) {
         return repository.getById(dto.getId());
     }

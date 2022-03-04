@@ -9,9 +9,9 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReportDto {
-    private Long id;
-    private String date;
-    private String text;
-    private UserRsDto userRsDto;
+public class TaskRsDto {
+    private String type;
+    private String dateTime;
+    private String state;
+    private String repeatType;
 }

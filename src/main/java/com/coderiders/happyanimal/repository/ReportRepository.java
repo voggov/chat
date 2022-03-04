@@ -1,6 +1,7 @@
 package com.coderiders.happyanimal.repository;
 
 import com.coderiders.happyanimal.model.Report;
+import com.coderiders.happyanimal.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +17,6 @@ public interface ReportRepository extends JpaRepository<Report, Long>{
     List<Report> findByUserName(String userName);
 
     List<Report> findAll();
+
+    List<Report> findAllByUser(User User);
 }

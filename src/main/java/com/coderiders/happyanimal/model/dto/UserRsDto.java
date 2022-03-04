@@ -4,8 +4,6 @@ import com.coderiders.happyanimal.enums.Gender;
 import com.coderiders.happyanimal.enums.UserRole;
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
 @Builder
@@ -18,5 +16,4 @@ public class UserRsDto {
     private UserRole userRole;
     private int age;
     private String login;
-    List<ReportDto> reportDtos;
 }

@@ -4,7 +4,6 @@ import com.coderiders.happyanimal.model.Report;
 import com.coderiders.happyanimal.model.dto.ReportDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 @AllArgsConstructor
@@ -15,7 +14,7 @@ public class ReportMapper {
                 .id(report.getId())
                 .date(report.getDate())
                 .text(report.getText())
-                .userDTO(userMapper.mapToResponseDto(report.getUser()))
+                .userRsDto(userMapper.mapToResponseDto(report.getUser()))
                 .build();
     }
 
@@ -24,7 +23,7 @@ public class ReportMapper {
                 .id(reportDTO.getId())
                 .date(reportDTO.getDate())
                 .text(reportDTO.getText())
-                .user(userMapper.mapToUser(reportDTO.getUserDTO()))
+                .user(userMapper.mapToUser(reportDTO.getUserRsDto()))
                 .build();
     }
 }
