@@ -5,33 +5,26 @@ import com.coderiders.happyanimal.model.User;
 import com.coderiders.happyanimal.model.dto.UserRqDto;
 import com.coderiders.happyanimal.model.dto.UserRsDto;
 import com.coderiders.happyanimal.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
-@AllArgsConstructor
 public class UserMapper {
     private final UserRepository repository;
 
-    public List<UserRsDto> mapUserListToDtoList(Iterable<User> users) {
-        List<UserRsDto> dtos = new ArrayList<>();
-        users.forEach(user -> dtos.add(mapToResponseDto(user)));
-        return dtos;
+    @Autowired
+    public UserMapper(UserRepository repository) {
+        this.repository = repository;
     }
 
-    public UserRqDto mapToRequestDto(User user) {
-        return UserRqDto.builder()
-                .name(user.getName())
-                .gender(user.getGender())
-                .age(user.getAge())
-                .login(user.getLogin())
-                .password(user.getPassword())
-                .build();
+    public List<UserRsDto> mapUserListToDtoList(List<User> users) {
+        return users.stream().map(this::mapToResponseDto).collect(Collectors.toList());
     }
+
     @Transactional
     public User mapToUser(UserRsDto dto) {
         return repository.getById(dto.getId());
