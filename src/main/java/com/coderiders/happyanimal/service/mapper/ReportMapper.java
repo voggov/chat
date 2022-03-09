@@ -1,15 +1,31 @@
 package com.coderiders.happyanimal.service.mapper;
 
+import com.coderiders.happyanimal.model.Animal;
 import com.coderiders.happyanimal.model.Report;
+import com.coderiders.happyanimal.model.dto.AnimalDto;
 import com.coderiders.happyanimal.model.dto.ReportDto;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
-@AllArgsConstructor
 public class ReportMapper {
-    private UserMapper userMapper;
-    public ReportDto mapToReportDTO(Report report) {
+    private final UserMapper userMapper;
+
+    @Autowired
+    public ReportMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
+
+    public List<ReportDto> toDtoList(List<Report> reportList) {
+        return reportList.stream().map(this::toDto).collect(Collectors.toList());
+    }
+
+    public ReportDto toDto(Report report) {
         return ReportDto.builder()
                 .id(report.getId())
                 .date(report.getDate())
@@ -18,7 +34,7 @@ public class ReportMapper {
                 .build();
     }
 
-    public Report mapToReport(ReportDto reportDTO) {
+    public Report toReport(ReportDto reportDTO) {
         return Report.builder()
                 .id(reportDTO.getId())
                 .date(reportDTO.getDate())

@@ -4,6 +4,7 @@ import com.coderiders.happyanimal.model.dto.AnimalDto;
 import com.coderiders.happyanimal.model.dto.TaskRsDto;
 import com.coderiders.happyanimal.service.AnimalService;
 import io.swagger.v3.oas.annotations.Parameter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,13 +15,14 @@ import java.util.List;
 public class AnimalController {
     private final AnimalService animalService;
 
+    @Autowired
     public AnimalController(AnimalService animalService) {
         this.animalService = animalService;
     }
 
     @PostMapping()
-    public AnimalDto addAnimal(@RequestBody AnimalDto animalDto, @RequestParam(required = false) Long userId) {
-        return animalService.saveAnimal(animalDto, userId);
+    public void addAnimal(@RequestBody AnimalDto animalDto, @RequestParam(required = false) Long userId) {
+        animalService.saveAnimal(animalDto, userId);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -28,9 +30,8 @@ public class AnimalController {
         return animalService.getAll();
     }
 
-    @GetMapping
-    public List<AnimalDto> getUserAnimals(@RequestParam @Parameter(name = "User Id", example = "1")
-                                                      Long userId) {
+    @GetMapping(path = "/{userId}")
+    public List<AnimalDto> getUserAnimals(@PathVariable @Parameter(name = "User Id", example = "1") Long userId) {
         return animalService.getAllByUserId(userId);
     }
 

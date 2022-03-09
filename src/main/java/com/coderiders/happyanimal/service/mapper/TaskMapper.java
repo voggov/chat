@@ -3,8 +3,7 @@ package com.coderiders.happyanimal.service.mapper;
 import com.coderiders.happyanimal.model.Task;
 import com.coderiders.happyanimal.model.dto.TaskRqDto;
 import com.coderiders.happyanimal.model.dto.TaskRsDto;
-import com.coderiders.happyanimal.repository.TaskRepository;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,10 +11,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@AllArgsConstructor
 public class TaskMapper {
-    private TaskRepository taskRepository;
-    private AnimalMapper animalMapper;
+    private final AnimalMapper animalMapper;
+
+    @Autowired
+    public TaskMapper(AnimalMapper animalMapper) {
+        this.animalMapper = animalMapper;
+    }
 
     public TaskRqDto toRqDto(Task task) {
         return TaskRqDto.builder()
@@ -27,8 +29,12 @@ public class TaskMapper {
                 .build();
     }
 
-    public List<TaskRqDto> mapTaskListToDto(List<Task> taskList) {
+    public List<TaskRqDto> mapTaskListToRqDto(List<Task> taskList) {
         return taskList.stream().map(this::toRqDto).collect(Collectors.toList());
+    }
+
+    public List<TaskRsDto> mapTaskListToRsDto(List<Task> taskList) {
+        return taskList.stream().map(this::toRsDto).collect(Collectors.toList());
     }
 
     @Transactional
@@ -43,7 +49,7 @@ public class TaskMapper {
     }
 
     @Transactional
-    public TaskRsDto toRsDto(Task task){
+    public TaskRsDto toRsDto(Task task) {
         return TaskRsDto.builder()
                 .type(task.getType())
                 .dateTime(task.getDateTime())

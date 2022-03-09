@@ -18,19 +18,18 @@ public class ReportController {
         this.reportService = reportService;
     }
 
-    @GetMapping(path = "/reports/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ReportDto> getAllReports() {
         return reportService.getAllReportsDTO();
     }
 
-    @PostMapping(path = "/{userId}/reports/add")
-    public void addReport(@RequestBody ReportDto reportDto, @PathVariable Long userId) {
+    @PostMapping()
+    public void addReport(@RequestBody ReportDto reportDto, @RequestParam Long userId) {
         reportService.saveReport(reportDto, userId);
     }
 
-    @GetMapping(path = "/{userId}/reports", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ReportDto> getReportsByUserId(@PathVariable Long userId) {
         return reportService.getReportDTOByUserId(userId);
     }
-
 }

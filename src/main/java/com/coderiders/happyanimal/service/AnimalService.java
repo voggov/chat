@@ -2,13 +2,12 @@ package com.coderiders.happyanimal.service;
 
 import com.coderiders.happyanimal.model.Animal;
 import com.coderiders.happyanimal.model.dto.AnimalDto;
-import com.coderiders.happyanimal.model.dto.TaskRqDto;
 import com.coderiders.happyanimal.model.dto.TaskRsDto;
 import com.coderiders.happyanimal.repository.AnimalRepository;
 import com.coderiders.happyanimal.repository.UserRepository;
 import com.coderiders.happyanimal.service.mapper.AnimalMapper;
 import com.coderiders.happyanimal.service.mapper.TaskMapper;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,41 +15,44 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 public class AnimalService {
-    private AnimalRepository animalRepository;
-    private UserRepository userRepository;
-    private AnimalMapper animalMapper;
-    private TaskMapper taskMapper;
+    private final AnimalRepository animalRepository;
+    private final UserRepository userRepository;
+    private final AnimalMapper animalMapper;
+    private final TaskMapper taskMapper;
+
+    @Autowired
+    public AnimalService(AnimalRepository animalRepository, UserRepository userRepository, AnimalMapper animalMapper, TaskMapper taskMapper) {
+        this.animalRepository = animalRepository;
+        this.userRepository = userRepository;
+        this.animalMapper = animalMapper;
+        this.taskMapper = taskMapper;
+    }
 
     @Transactional
-    public AnimalDto saveAnimal(AnimalDto animalDto, Long userId) {
+    public void saveAnimal(AnimalDto animalDto, Long userId) {
         Animal animal = animalMapper.toAnimal(animalDto);
         animal.setUser(userRepository.getById(userId));
         animalRepository.save(animal);
-        return animalMapper.toDto(animalRepository.findFirstById(animal.getId()).orElseThrow());
     }
 
     @Transactional
     public List<AnimalDto> getAllByUserId(Long userId) {
-        List<Animal> found = animalRepository.findAllByUser(userRepository.getById(userId));
-        return animalMapper.toDtoList(found);
+        return animalMapper.toDtoList(
+                animalRepository.findAllByUser(userRepository.getById(userId))
+        );
     }
 
     @Transactional
     public List<AnimalDto> getAll() {
-        return animalRepository.findAll().stream()
-                .map(animal -> animalMapper.toDto(animal))
-                .collect(Collectors.toList());
+        return animalMapper.toDtoList(animalRepository.findAll());
     }
 
     @Transactional
-    public List<TaskRsDto> getAnimalTasks(Long animalId){
-        return getById(animalId)
-                .getTasks()
-                .stream()
-                .map(task -> taskMapper.toRsDto(task))
-                .collect(Collectors.toList());
+    public List<TaskRsDto> getAnimalTasks(Long animalId) {
+        return taskMapper.mapTaskListToRsDto(
+                getById(animalId).getTasks()
+        );
     }
 
     @Transactional

@@ -2,25 +2,20 @@ package com.coderiders.happyanimal.service.mapper;
 
 import com.coderiders.happyanimal.model.Animal;
 import com.coderiders.happyanimal.model.dto.AnimalDto;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
-@AllArgsConstructor
 public class AnimalMapper {
-    public List<AnimalDto> toDtoList(Iterable<Animal> animalList) {
-        List<AnimalDto> dtoList = new ArrayList<>();
-        animalList.forEach(animal -> dtoList.add(toDto(animal)));
-        return dtoList;
+
+    public List<AnimalDto> toDtoList(List<Animal> animalList) {
+        return animalList.stream().map(this::toDto).collect(Collectors.toList());
     }
 
-    public List<Animal> toAnimalList(Iterable<AnimalDto> dtos) {
-        List<Animal> animals = new ArrayList<>();
-        dtos.forEach(animalDto -> animals.add(toAnimal(animalDto)));
-        return animals;
+    public List<Animal> toAnimalList(List<AnimalDto> dtos) {
+        return dtos.stream().map(this::toAnimal).collect(Collectors.toList());
     }
 
     public Animal toAnimal(AnimalDto dto) {
