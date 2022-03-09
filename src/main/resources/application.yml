@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/happyAnimals
+    url: jdbc:postgresql://localhost:5432/happyAnimal
     username: postgres
-    password: baton1408
+    password: root
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
