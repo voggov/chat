@@ -35,6 +35,7 @@ public class UserMapper {
                 .name(dto.getName())
                 .gender(dto.getGender())
                 .age(dto.getAge())
+                .userRole(dto.getRole())
                 .login(dto.getLogin())
                 .password(dto.getPassword())
                 .userRole(UserRole.EMPLOYEE)
@@ -51,5 +52,4 @@ public class UserMapper {
                 .login(user.getLogin())
                 .build();
     }
-
 }

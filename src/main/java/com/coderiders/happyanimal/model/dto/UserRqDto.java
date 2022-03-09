@@ -15,4 +15,5 @@ public class UserRqDto {
     private int age;
     private String login;
     private String password;
+    private UserRole role;
 }
