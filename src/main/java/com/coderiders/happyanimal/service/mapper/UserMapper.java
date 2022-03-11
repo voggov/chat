@@ -1,7 +1,7 @@
 package com.coderiders.happyanimal.service.mapper;
 
 import com.coderiders.happyanimal.enums.UserRole;
-import com.coderiders.happyanimal.exceptions.BadRequestException;
+import com.coderiders.happyanimal.exceptions.NotFoundException;
 import com.coderiders.happyanimal.model.User;
 import com.coderiders.happyanimal.model.dto.UserRqDto;
 import com.coderiders.happyanimal.model.dto.UserRsDto;
@@ -31,7 +31,7 @@ public class UserMapper {
     @Transactional
     public User mapToUser(UserRsDto dto) {
         return Optional.ofNullable(repository.getById(dto.getId())).orElseThrow(
-                () -> new BadRequestException(ERROR_MESSAGE_BAD_REQUEST));
+                () -> new NotFoundException(ERROR_MESSAGE_BAD_REQUEST));
     }
 
     public User mapToUser(UserRqDto dto) {

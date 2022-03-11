@@ -1,7 +1,7 @@
 package com.coderiders.happyanimal.service;
 
 import com.coderiders.happyanimal.enums.UserRole;
-import com.coderiders.happyanimal.exceptions.BadRequestException;
+import com.coderiders.happyanimal.exceptions.NotFoundException;
 import com.coderiders.happyanimal.model.dto.UserRqDto;
 import com.coderiders.happyanimal.model.dto.UserRsDto;
 import com.coderiders.happyanimal.repository.UserRepository;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final UserMapper mapper;
-    private static final String ERROR_MESSAGE_BAD_REQUEST = "Пользователь не найден";
+    private static final String ERROR_MESSAGE_NOT_FOUND = "Пользователь не найден";
 
     @Autowired
     public UserService(UserRepository userRepository, UserMapper mapper) {
@@ -35,24 +35,24 @@ public class UserService {
     @Transactional
     public List<UserRsDto> getAll() {
         return mapper.mapUserListToDtoList(Optional.ofNullable(userRepository.findAll()).orElseThrow(
-                () -> new BadRequestException(ERROR_MESSAGE_BAD_REQUEST)));
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND)));
     }
 
     @Transactional
     public UserRsDto getById(Long id) {
         return mapper.mapToResponseDto(userRepository.findFirstById(id).orElseThrow(
-                () -> new BadRequestException(ERROR_MESSAGE_BAD_REQUEST)));
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND)));
     }
 
     @Transactional
     public List<UserRsDto> getByName(String name) {
         return mapper.mapUserListToDtoList(Optional.ofNullable(userRepository.getAllByNameContainsIgnoreCase(name)).orElseThrow(
-                () -> new BadRequestException(ERROR_MESSAGE_BAD_REQUEST)));
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND)));
     }
 
     @Transactional
     public List<UserRsDto> getAllByRole(UserRole role) {
         return mapper.mapUserListToDtoList(Optional.ofNullable(userRepository.getAllByUserRole(role)).orElseThrow(
-                () -> new BadRequestException(ERROR_MESSAGE_BAD_REQUEST)));
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND)));
     }
 }

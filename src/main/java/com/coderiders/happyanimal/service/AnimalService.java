@@ -1,6 +1,6 @@
 package com.coderiders.happyanimal.service;
 
-import com.coderiders.happyanimal.exceptions.BadRequestException;
+import com.coderiders.happyanimal.exceptions.NotFoundException;
 import com.coderiders.happyanimal.model.Animal;
 import com.coderiders.happyanimal.model.dto.AnimalDto;
 import com.coderiders.happyanimal.model.dto.TaskRsDto;
@@ -21,7 +21,7 @@ public class AnimalService {
     private final UserRepository userRepository;
     private final AnimalMapper animalMapper;
     private final TaskMapper taskMapper;
-    private static final String ERROR_MESSAGE_BAD_REQUEST = "Зверь не найден";
+    private static final String ERROR_MESSAGE_NOT_FOUND = "Зверь не найден";
 
     @Autowired
     public AnimalService(AnimalRepository animalRepository,
@@ -38,7 +38,7 @@ public class AnimalService {
     public void saveAnimal(AnimalDto animalDto, Long userId) {
         Animal animal = animalMapper.toAnimal(animalDto);
         animal.setUser(Optional.ofNullable(userRepository.getById(userId)).orElseThrow(
-                () -> new BadRequestException(ERROR_MESSAGE_BAD_REQUEST)));
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND)));
         animalRepository.save(animal);
     }
 
@@ -46,22 +46,22 @@ public class AnimalService {
     public List<AnimalDto> getAllByUserId(Long userId) {
         return animalMapper.toDtoList(
                 animalRepository.findAllByUser(Optional.ofNullable(userRepository.getById(userId)).orElseThrow(
-                        () -> new BadRequestException(ERROR_MESSAGE_BAD_REQUEST))));
+                        () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND))));
     }
 
     @Transactional
     public List<AnimalDto> getAll() {
         return animalMapper.toDtoList(Optional.ofNullable(animalRepository.findAll()).orElseThrow(
-                () -> new BadRequestException(ERROR_MESSAGE_BAD_REQUEST)));
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND)));
     }
 
     @Transactional
     public List<TaskRsDto> getAnimalTasks(Long animalId) {
         return taskMapper.mapTaskListToRsDto(
                 Optional.ofNullable(Optional.ofNullable(getById(animalId)).orElseThrow(
-                        () -> new BadRequestException(ERROR_MESSAGE_BAD_REQUEST)
+                        () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND)
                 ).getTasks()).orElseThrow(
-                        () -> new BadRequestException("Задач для этого животного не существует")
+                        () -> new NotFoundException("Задач для этого животного не существует")
                 )
         );
     }
@@ -69,6 +69,6 @@ public class AnimalService {
     @Transactional
     public Animal getById(Long id) {
         return animalRepository.findFirstById(id).orElseThrow(
-                () -> new BadRequestException(ERROR_MESSAGE_BAD_REQUEST));
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND));
     }
 }

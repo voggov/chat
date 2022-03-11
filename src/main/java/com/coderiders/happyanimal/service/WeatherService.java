@@ -1,6 +1,6 @@
 package com.coderiders.happyanimal.service;
 
-import com.coderiders.happyanimal.exceptions.BadRequestException;
+import com.coderiders.happyanimal.exceptions.NotFoundException;
 import com.coderiders.happyanimal.model.dto.WeatherFromJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.Optional;
 public class WeatherService {
     private final RestTemplate restTemplate;
     private static final String API_KEY = "6c51e668f89345a6a52112444220403";
-    private static final String ERROR_MESSAGE_BAD_REQUEST = "Ошибка получения прогноза погоды";
+    private static final String ERROR_MESSAGE_NOT_FOUND = "Ошибка получения прогноза погоды";
 
     @Autowired
     public WeatherService(RestTemplate restTemplate) {
@@ -29,6 +29,6 @@ public class WeatherService {
                         "&days=" +
                         countOfDays,
                 WeatherFromJson.class)).orElseThrow(
-                () -> new BadRequestException(ERROR_MESSAGE_BAD_REQUEST));
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND));
     }
 }

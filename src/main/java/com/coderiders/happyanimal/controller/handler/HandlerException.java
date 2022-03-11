@@ -1,5 +1,6 @@
 package com.coderiders.happyanimal.controller.handler;
 
+import com.coderiders.happyanimal.exceptions.NotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +12,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class HandlerException extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = {IllegalArgumentException.class, IllegalStateException.class})
+    @ExceptionHandler(value = {NotFoundException.class})
     public ResponseEntity handleBadRequestException(RuntimeException ex, WebRequest webRequest) {
-        return handleExceptionInternal(ex, "Ошибка", new HttpHeaders(), HttpStatus.BAD_REQUEST, webRequest);
+        return handleExceptionInternal(ex,
+                "Ошибка, код 404",
+                new HttpHeaders(),
+                HttpStatus.NOT_FOUND,
+                webRequest);
     }
 }
