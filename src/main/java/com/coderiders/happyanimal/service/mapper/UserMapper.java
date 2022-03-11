@@ -1,6 +1,7 @@
 package com.coderiders.happyanimal.service.mapper;
 
 import com.coderiders.happyanimal.enums.UserRole;
+import com.coderiders.happyanimal.exceptions.BadRequestException;
 import com.coderiders.happyanimal.model.User;
 import com.coderiders.happyanimal.model.dto.UserRqDto;
 import com.coderiders.happyanimal.model.dto.UserRsDto;
@@ -10,11 +11,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {
     private final UserRepository repository;
+    private static final String ERROR_MESSAGE_BAD_REQUEST = "Пользователь не найден";
 
     @Autowired
     public UserMapper(UserRepository repository) {
@@ -27,7 +30,8 @@ public class UserMapper {
 
     @Transactional
     public User mapToUser(UserRsDto dto) {
-        return repository.getById(dto.getId());
+        return Optional.ofNullable(repository.getById(dto.getId())).orElseThrow(
+                () -> new BadRequestException(ERROR_MESSAGE_BAD_REQUEST));
     }
 
     public User mapToUser(UserRqDto dto) {
