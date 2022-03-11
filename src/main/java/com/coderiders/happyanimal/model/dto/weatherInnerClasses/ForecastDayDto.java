@@ -1,4 +1,4 @@
-package com.coderiders.happyanimal.model.dto;
+package com.coderiders.happyanimal.model.dto.weatherInnerClasses;
 
 import lombok.*;
 

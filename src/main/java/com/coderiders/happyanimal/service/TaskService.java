@@ -1,5 +1,6 @@
 package com.coderiders.happyanimal.service;
 
+import com.coderiders.happyanimal.exceptions.BadRequestException;
 import com.coderiders.happyanimal.model.dto.TaskRqDto;
 import com.coderiders.happyanimal.repository.AnimalRepository;
 import com.coderiders.happyanimal.repository.TaskRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +20,9 @@ public class TaskService {
     private final UserRepository userRepository;
     private final AnimalRepository animalRepository;
     private final TaskMapper taskMapper;
+    private static final String ERROR_MESSAGE_BAD_REQUEST_TASK = "Задачка не найдена";
+    private static final String ERROR_MESSAGE_BAD_REQUEST_ANIMAL = "Зверь не найден";
+    private static final String ERROR_MESSAGE_BAD_REQUEST_USER = "Пользователь не найден";
 
     @Autowired
     public TaskService(TaskRepository taskRepository, UserRepository userRepository, AnimalRepository animalRepository, TaskMapper taskMapper) {
@@ -34,14 +39,18 @@ public class TaskService {
 
     @Transactional
     public List<TaskRqDto> getAll() {
-        return taskMapper.mapTaskListToRqDto(taskRepository.findAll());
+        return taskMapper.mapTaskListToRqDto(Optional.ofNullable(taskRepository.findAll()).orElseThrow(
+                () -> new BadRequestException(ERROR_MESSAGE_BAD_REQUEST_TASK)));
     }
 
     @Transactional
     public List<List<TaskRqDto>> getByUserId(Long userId) {
-        return animalRepository.findAllByUser(userRepository.getById(userId))
+        return Optional.ofNullable(animalRepository.findAllByUser(Optional.ofNullable(userRepository.getById(userId)).orElseThrow(
+                () -> new BadRequestException(ERROR_MESSAGE_BAD_REQUEST_USER)))).orElseThrow(
+                () -> new BadRequestException(ERROR_MESSAGE_BAD_REQUEST_ANIMAL))
                 .stream()
-                .map(animal -> taskMapper.mapTaskListToRqDto(animal.getTasks()))
+                .map(animal -> Optional.ofNullable(taskMapper.mapTaskListToRqDto(animal.getTasks())).orElseThrow(
+                        () -> new BadRequestException(ERROR_MESSAGE_BAD_REQUEST_TASK)))
                 .collect(Collectors.toList());
     }
 }

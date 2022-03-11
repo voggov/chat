@@ -1,5 +1,6 @@
 package com.coderiders.happyanimal.model.dto;
 
+import com.coderiders.happyanimal.model.dto.weatherInnerClasses.ForecastDayDto;
 import lombok.*;
 
 import java.util.List;

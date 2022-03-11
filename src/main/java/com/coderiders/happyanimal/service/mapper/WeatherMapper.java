@@ -1,10 +1,9 @@
 package com.coderiders.happyanimal.service.mapper;
 
-import com.coderiders.happyanimal.model.dto.ForecastDayDto;
+import com.coderiders.happyanimal.model.dto.weatherInnerClasses.ForecastDayDto;
 import com.coderiders.happyanimal.model.dto.WeatherDto;
 import com.coderiders.happyanimal.model.dto.WeatherFromJson;
 import com.coderiders.happyanimal.model.dto.weatherInnerClasses.ForecastDay;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
