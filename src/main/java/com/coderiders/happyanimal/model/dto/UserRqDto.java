@@ -2,8 +2,9 @@ package com.coderiders.happyanimal.model.dto;
 
 import com.coderiders.happyanimal.enums.Gender;
 import com.coderiders.happyanimal.enums.UserRole;
-import com.sun.istack.NotNull;
 import lombok.*;
+
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter

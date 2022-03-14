@@ -1,7 +1,8 @@
 package com.coderiders.happyanimal.model.dto;
 
-import com.sun.istack.NotNull;
 import lombok.*;
+
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
