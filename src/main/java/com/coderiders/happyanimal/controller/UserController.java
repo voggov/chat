@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserRsDto addUser(@RequestBody UserRqDto userForm) {
+    public UserRsDto addUser(@Valid @RequestBody UserRqDto userForm) {
         return userService.saveUser(userForm);
     }
 

@@ -39,7 +39,7 @@ public class AnimalService {
         Animal animal = animalMapper.toAnimal(animalDto);
         animal.setUser(Optional.ofNullable(userRepository.getById(userId)).orElseThrow(
                 () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND)));
-        animalRepository.save(animal);
+        animalMapper.toDto(animalRepository.save(animal));
     }
 
     @Transactional

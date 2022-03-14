@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,7 +25,7 @@ public class ReportController {
     }
 
     @PostMapping()
-    public void addReport(@RequestBody ReportDto reportDto, @RequestParam Long userId) {
+    public void addReport(@Valid @RequestBody ReportDto reportDto, @RequestParam Long userId) {
         reportService.saveReport(reportDto, userId);
     }
 

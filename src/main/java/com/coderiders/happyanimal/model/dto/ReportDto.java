@@ -2,7 +2,7 @@ package com.coderiders.happyanimal.model.dto;
 
 import lombok.*;
 
-import java.util.List;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -10,8 +10,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReportDto {
+    @NotNull
     private Long id;
+    @NotNull
     private String date;
+    @NotNull
     private String text;
+    @NotNull
     private UserRsDto userRsDto;
 }

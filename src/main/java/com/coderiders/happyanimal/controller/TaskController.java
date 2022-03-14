@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,7 +20,7 @@ public class TaskController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public void addTask(@RequestBody TaskRqDto taskDto) {
+    public void addTask(@Valid @RequestBody TaskRqDto taskDto) {
         taskService.saveTask(taskDto);
     }
 

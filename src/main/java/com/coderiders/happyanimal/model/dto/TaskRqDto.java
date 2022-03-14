@@ -2,6 +2,7 @@ package com.coderiders.happyanimal.model.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -10,9 +11,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TaskRqDto {
+    @NotNull
     private String type;
+    @NotNull
     private String dateTime;
+    @NotNull
     private String state;
+    @NotNull
     private String repeatType;
+    @NotNull
     private List<AnimalDto> animalDtoList;
 }
