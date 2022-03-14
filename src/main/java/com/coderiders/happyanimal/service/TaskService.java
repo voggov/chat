@@ -44,4 +44,5 @@ public class TaskService {
                 .map(animal -> taskMapper.mapTaskListToRqDto(animal.getTasks()))
                 .collect(Collectors.toList());
     }
+
 }

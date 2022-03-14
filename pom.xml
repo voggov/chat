@@ -11,6 +11,8 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <!-- Quartz scheduling framework -->
+        <quartz.scheduling.version>2.2.1</quartz.scheduling.version>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -63,6 +65,12 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>3.0.0</version>
+        </dependency>
+        <!-- Quartz scheduling framework -->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>${quartz.scheduling.version}</version>
         </dependency>
     </dependencies>
 </project>

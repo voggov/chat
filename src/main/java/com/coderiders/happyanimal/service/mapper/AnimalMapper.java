@@ -31,6 +31,7 @@ public class AnimalMapper {
                 .kind(dto.getKind())
                 .location(dto.getLocation())
                 .status(dto.getStatus())
+                .localDate(dto.getLocalDate())
                 .build();
     }
 
@@ -47,6 +48,7 @@ public class AnimalMapper {
                 .kind(animal.getKind())
                 .location(animal.getLocation())
                 .status(animal.getStatus())
+                .localDate(animal.getLocalDate())
                 .build();
     }
 }

@@ -2,6 +2,7 @@ package com.coderiders.happyanimal.model.dto;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -21,4 +22,5 @@ public class AnimalDto {
     private String kind;
     private String location;
     private String status;
+    private LocalDate localDate;
 }

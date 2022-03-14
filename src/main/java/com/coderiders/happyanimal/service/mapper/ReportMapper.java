@@ -28,7 +28,6 @@ public class ReportMapper {
     public ReportDto toDto(Report report) {
         return ReportDto.builder()
                 .id(report.getId())
-                .date(report.getDate())
                 .text(report.getText())
                 .userRsDto(userMapper.mapToResponseDto(report.getUser()))
                 .build();
@@ -37,7 +36,6 @@ public class ReportMapper {
     public Report toReport(ReportDto reportDTO) {
         return Report.builder()
                 .id(reportDTO.getId())
-                .date(reportDTO.getDate())
                 .text(reportDTO.getText())
                 .user(userMapper.mapToUser(reportDTO.getUserRsDto()))
                 .build();

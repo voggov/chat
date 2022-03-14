@@ -22,7 +22,6 @@ public class TaskMapper {
     public TaskRqDto toRqDto(Task task) {
         return TaskRqDto.builder()
                 .type(task.getType())
-                .dateTime(task.getDateTime())
                 .state(task.getState())
                 .repeatType(task.getRepeatType())
                 .animalDtoList(animalMapper.toDtoList(task.getAnimals()))
@@ -41,7 +40,6 @@ public class TaskMapper {
     public Task mapToTask(TaskRqDto dto) {
         return Task.builder()
                 .type(dto.getType())
-                .dateTime(dto.getDateTime())
                 .state(dto.getState())
                 .repeatType(dto.getRepeatType())
                 .animals(animalMapper.toAnimalList(dto.getAnimalDtoList()))
@@ -52,7 +50,6 @@ public class TaskMapper {
     public TaskRsDto toRsDto(Task task) {
         return TaskRsDto.builder()
                 .type(task.getType())
-                .dateTime(task.getDateTime())
                 .state(task.getState())
                 .repeatType(task.getRepeatType())
                 .build();
