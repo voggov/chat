@@ -5,7 +5,7 @@ import com.coderiders.happyanimal.model.dto.TaskRqDto;
 import com.coderiders.happyanimal.repository.AnimalRepository;
 import com.coderiders.happyanimal.repository.TaskRepository;
 import com.coderiders.happyanimal.repository.UserRepository;
-import com.coderiders.happyanimal.service.mapper.TaskMapper;
+import com.coderiders.happyanimal.mapper.TaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -5,7 +5,7 @@ import com.coderiders.happyanimal.model.Report;
 import com.coderiders.happyanimal.model.dto.ReportDto;
 import com.coderiders.happyanimal.repository.ReportRepository;
 import com.coderiders.happyanimal.repository.UserRepository;
-import com.coderiders.happyanimal.service.mapper.ReportMapper;
+import com.coderiders.happyanimal.mapper.ReportMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

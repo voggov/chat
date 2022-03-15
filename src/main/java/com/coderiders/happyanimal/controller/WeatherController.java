@@ -2,7 +2,7 @@ package com.coderiders.happyanimal.controller;
 
 import com.coderiders.happyanimal.model.dto.WeatherDto;
 import com.coderiders.happyanimal.service.WeatherService;
-import com.coderiders.happyanimal.service.mapper.WeatherMapper;
+import com.coderiders.happyanimal.mapper.WeatherMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -5,7 +5,7 @@ import com.coderiders.happyanimal.exceptions.NotFoundException;
 import com.coderiders.happyanimal.model.dto.UserRqDto;
 import com.coderiders.happyanimal.model.dto.UserRsDto;
 import com.coderiders.happyanimal.repository.UserRepository;
-import com.coderiders.happyanimal.service.mapper.UserMapper;
+import com.coderiders.happyanimal.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

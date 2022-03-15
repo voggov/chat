@@ -1,4 +1,4 @@
-package com.coderiders.happyanimal.service.mapper;
+package com.coderiders.happyanimal.mapper;
 
 import com.coderiders.happyanimal.enums.UserRole;
 import com.coderiders.happyanimal.exceptions.NotFoundException;
