@@ -5,6 +5,7 @@ import com.coderiders.happyanimal.exceptions.NotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -29,5 +30,17 @@ public class HandlerException extends ResponseEntityExceptionHandler {
                 new HttpHeaders(),
                 HttpStatus.BAD_REQUEST,
                 webRequest);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                                  HttpHeaders headers,
+                                                                  HttpStatus status,
+                                                                  WebRequest request) {
+        return handleExceptionInternal(ex,
+                "Ошибка, код 400 " + ex.getMessage(),
+                headers,
+                HttpStatus.BAD_REQUEST,
+                request);
     }
 }

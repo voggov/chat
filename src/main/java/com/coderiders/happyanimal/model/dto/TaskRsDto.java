@@ -11,6 +11,8 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class TaskRsDto {
     @NotNull
+    private Long id;
+    @NotNull
     private String type;
     @NotNull
     private String dateTime;

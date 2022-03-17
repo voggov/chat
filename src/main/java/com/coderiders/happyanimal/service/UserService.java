@@ -2,6 +2,7 @@ package com.coderiders.happyanimal.service;
 
 import com.coderiders.happyanimal.enums.UserRole;
 import com.coderiders.happyanimal.exceptions.NotFoundException;
+import com.coderiders.happyanimal.model.User;
 import com.coderiders.happyanimal.model.dto.UserRqDto;
 import com.coderiders.happyanimal.model.dto.UserRsDto;
 import com.coderiders.happyanimal.repository.UserRepository;
@@ -34,25 +35,29 @@ public class UserService {
 
     @Transactional
     public List<UserRsDto> getAll() {
-        return mapper.mapUserListToDtoList(Optional.ofNullable(userRepository.findAll()).orElseThrow(
-                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND)));
+        List<User> users = Optional.ofNullable(userRepository.findAll()).orElseThrow(
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND));
+        return mapper.mapUserListToDtoList(users);
     }
 
     @Transactional
     public UserRsDto getById(Long id) {
-        return mapper.mapToResponseDto(userRepository.findFirstById(id).orElseThrow(
-                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND)));
+        User user = userRepository.findFirstById(id).orElseThrow(
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND));
+        return mapper.mapToResponseDto(user);
     }
 
     @Transactional
     public List<UserRsDto> getByName(String name) {
-        return mapper.mapUserListToDtoList(Optional.ofNullable(userRepository.getAllByNameContainsIgnoreCase(name)).orElseThrow(
-                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND)));
+        List<User> users = Optional.ofNullable(userRepository.getAllByNameContainsIgnoreCase(name)).orElseThrow(
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND));
+        return mapper.mapUserListToDtoList(users);
     }
 
     @Transactional
     public List<UserRsDto> getAllByRole(UserRole role) {
-        return mapper.mapUserListToDtoList(Optional.ofNullable(userRepository.getAllByUserRole(role)).orElseThrow(
-                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND)));
+        List<User> users = Optional.ofNullable(userRepository.getAllByUserRole(role)).orElseThrow(
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND));
+        return mapper.mapUserListToDtoList(users);
     }
 }
