@@ -25,7 +25,6 @@ public class TaskMapper {
                 .dateTime(task.getDateTime())
                 .state(task.getState())
                 .repeatType(task.getRepeatType())
-                .animalDtoList(animalMapper.toDtoList(task.getAnimals()))
                 .build();
     }
 
@@ -44,7 +43,7 @@ public class TaskMapper {
                 .dateTime(dto.getDateTime())
                 .state(dto.getState())
                 .repeatType(dto.getRepeatType())
-                .animals(animalMapper.toAnimalList(dto.getAnimalDtoList()))
+                .animal(animalMapper.toAnimal(dto.getAnimalDto()))
                 .build();
     }
 

@@ -29,10 +29,7 @@ public class Task {
     @Column(name = "repeat_type")
     private String repeatType;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "animal_like",
-            joinColumns = @JoinColumn(name = "task_id"),
-            inverseJoinColumns = @JoinColumn(name = "animal_id"))
-    private List<Animal> animals;
+    @ManyToOne()
+    @JoinColumn(name = "animal_id")
+    private Animal animal;
 }

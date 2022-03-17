@@ -23,7 +23,7 @@ public class ReportController {
         return reportService.getAllReportsDTO();
     }
 
-    @PostMapping()
+    @PostMapping
     public void addReport(@RequestBody ReportDto reportDto, @RequestParam Long userId) {
         reportService.saveReport(reportDto, userId);
     }

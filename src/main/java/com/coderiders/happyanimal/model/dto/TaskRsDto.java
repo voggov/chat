@@ -2,8 +2,6 @@ package com.coderiders.happyanimal.model.dto;
 
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
 @Builder

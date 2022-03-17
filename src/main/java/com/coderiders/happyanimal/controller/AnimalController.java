@@ -20,7 +20,7 @@ public class AnimalController {
         this.animalService = animalService;
     }
 
-    @PostMapping()
+    @PostMapping
     public void addAnimal(@RequestBody AnimalDto animalDto, @RequestParam(required = false) Long userId) {
         animalService.saveAnimal(animalDto, userId);
     }

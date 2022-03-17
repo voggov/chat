@@ -14,5 +14,5 @@ public class TaskRqDto {
     private String dateTime;
     private String state;
     private String repeatType;
-    private List<AnimalDto> animalDtoList;
+    private AnimalDto animalDto;
 }
