@@ -5,7 +5,20 @@ spring:
     password: root
     driver-class-name: org.postgresql.Driver
   jpa:
-
     hibernate:
       ddl-auto: update
     open-in-view: false
+
+springfox:
+  documentation:
+    swaggerUi:
+      baseUrl: /api
+    openApi:
+      v3:
+        path: /api/v3/api-docs
+    swagger:
+      v2:
+        path: /api/v2/api-docs
+server:
+  port: 8080
+  contextPath: /api
