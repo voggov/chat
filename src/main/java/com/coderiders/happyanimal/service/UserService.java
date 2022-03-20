@@ -2,11 +2,11 @@ package com.coderiders.happyanimal.service;
 
 import com.coderiders.happyanimal.enums.UserRole;
 import com.coderiders.happyanimal.exceptions.NotFoundException;
+import com.coderiders.happyanimal.mapper.UserMapper;
 import com.coderiders.happyanimal.model.User;
 import com.coderiders.happyanimal.model.dto.UserRqDto;
 import com.coderiders.happyanimal.model.dto.UserRsDto;
 import com.coderiders.happyanimal.repository.UserRepository;
-import com.coderiders.happyanimal.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,22 +42,26 @@ public class UserService {
 
     @Transactional
     public UserRsDto getById(Long id) {
-        User user = userRepository.findFirstById(id).orElseThrow(
+        User user = userRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND));
         return mapper.mapToResponseDto(user);
     }
 
     @Transactional
     public List<UserRsDto> getByName(String name) {
-        List<User> users = Optional.ofNullable(userRepository.getAllByNameContainsIgnoreCase(name)).orElseThrow(
-                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND));
+        List<User> users = userRepository.getAllByNameContainsIgnoreCase(name);
+        if (users.isEmpty()) {
+            throw new NotFoundException(ERROR_MESSAGE_NOT_FOUND);
+        }
         return mapper.mapUserListToDtoList(users);
     }
 
     @Transactional
     public List<UserRsDto> getAllByRole(UserRole role) {
-        List<User> users = Optional.ofNullable(userRepository.getAllByUserRole(role)).orElseThrow(
-                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND));
+        List<User> users = userRepository.getAllByUserRole(role);
+        if (users.isEmpty()) {
+            throw new NotFoundException(ERROR_MESSAGE_NOT_FOUND);
+        }
         return mapper.mapUserListToDtoList(users);
     }
 }

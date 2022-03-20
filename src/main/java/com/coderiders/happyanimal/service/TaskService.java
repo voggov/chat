@@ -1,6 +1,7 @@
 package com.coderiders.happyanimal.service;
 
 import com.coderiders.happyanimal.exceptions.NotFoundException;
+import com.coderiders.happyanimal.mapper.TaskMapper;
 import com.coderiders.happyanimal.model.Animal;
 import com.coderiders.happyanimal.model.Task;
 import com.coderiders.happyanimal.model.User;
@@ -9,13 +10,11 @@ import com.coderiders.happyanimal.model.dto.TaskRsDto;
 import com.coderiders.happyanimal.repository.AnimalRepository;
 import com.coderiders.happyanimal.repository.TaskRepository;
 import com.coderiders.happyanimal.repository.UserRepository;
-import com.coderiders.happyanimal.mapper.TaskMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,8 +43,10 @@ public class TaskService {
 
     @Transactional
     public List<TaskRqDto> getAll() {
-        List<Task> allTasks = Optional.ofNullable(taskRepository.findAll()).orElseThrow(
-                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_TASK));
+        List<Task> allTasks = taskRepository.findAll();
+        if (allTasks.isEmpty()) {
+            throw new NotFoundException(ERROR_MESSAGE_NOT_FOUND_TASK);
+        }
         return taskMapper.mapTaskListToRqDto(allTasks);
     }
 
@@ -53,13 +54,17 @@ public class TaskService {
     public List<List<TaskRqDto>> getByUserId(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_USER));
-        List<Animal> animals = Optional.ofNullable(animalRepository.findAllByUser(user)).orElseThrow(
-                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_ANIMAL));
+        List<Animal> animals = animalRepository.findAllByUser(user);
+        if (animals.isEmpty()) {
+            throw new NotFoundException(ERROR_MESSAGE_NOT_FOUND_ANIMAL);
+        }
         return animals
                 .stream()
                 .map(animal -> {
-                    List<Task> taskList = Optional.ofNullable(animal.getTasks()).orElseThrow(
-                            () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_TASK));
+                    List<Task> taskList = animal.getTasks();
+                    if (taskList.isEmpty()) {
+                        throw new NotFoundException(ERROR_MESSAGE_NOT_FOUND_TASK);
+                    }
                     return taskMapper.mapTaskListToRqDto(taskList);
                 })
                 .collect(Collectors.toList());

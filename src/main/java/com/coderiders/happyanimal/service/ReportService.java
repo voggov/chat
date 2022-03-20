@@ -1,18 +1,17 @@
 package com.coderiders.happyanimal.service;
 
 import com.coderiders.happyanimal.exceptions.NotFoundException;
+import com.coderiders.happyanimal.mapper.ReportMapper;
 import com.coderiders.happyanimal.model.Report;
 import com.coderiders.happyanimal.model.User;
 import com.coderiders.happyanimal.model.dto.ReportDto;
 import com.coderiders.happyanimal.repository.ReportRepository;
 import com.coderiders.happyanimal.repository.UserRepository;
-import com.coderiders.happyanimal.mapper.ReportMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ReportService {
@@ -40,8 +39,10 @@ public class ReportService {
 
     @Transactional
     public List<ReportDto> getAllReportsDTO() {
-        List<Report> allReports = Optional.ofNullable(reportRepository.findAll()).orElseThrow(
-                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_REPORT));
+        List<Report> allReports = reportRepository.findAll();
+        if (allReports.isEmpty()) {
+            throw new NotFoundException(ERROR_MESSAGE_NOT_FOUND_REPORT);
+        }
         return reportMapper.toDtoList(allReports);
     }
 
@@ -49,8 +50,10 @@ public class ReportService {
     public List<ReportDto> getReportDTOByUserId(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_USER));
-        List<Report> reportList = Optional.ofNullable(reportRepository.findAllByUser(user)).orElseThrow(
-                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_REPORT));
+        List<Report> reportList = reportRepository.findAllByUser(user);
+        if (reportList.isEmpty()) {
+            throw new NotFoundException(ERROR_MESSAGE_NOT_FOUND_REPORT);
+        }
         return reportMapper.toDtoList(reportList);
     }
 }

@@ -2,6 +2,7 @@ package com.coderiders.happyanimal.mapper;
 
 import com.coderiders.happyanimal.model.Animal;
 import com.coderiders.happyanimal.model.dto.AnimalDto;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,34 +20,12 @@ public class AnimalMapper {
     }
 
     public Animal toAnimal(AnimalDto dto) {
-        return Animal.builder()
-                .id(dto.getId())
-                .name(dto.getName())
-                .gender(dto.getGender())
-                .age(dto.getAge())
-                .height(dto.getHeight())
-                .weight(dto.getWeight())
-                .animalClass(dto.getAnimalClass())
-                .squad(dto.getSquad())
-                .kind(dto.getKind())
-                .location(dto.getLocation())
-                .status(dto.getStatus())
-                .build();
+        var mapper = new ModelMapper();
+        return mapper.map(dto, Animal.class);
     }
 
     public AnimalDto toDto(Animal animal) {
-        return AnimalDto.builder()
-                .id(animal.getId())
-                .name(animal.getName())
-                .gender(animal.getGender())
-                .age(animal.getAge())
-                .height(animal.getHeight())
-                .weight(animal.getWeight())
-                .animalClass(animal.getAnimalClass())
-                .squad(animal.getSquad())
-                .kind(animal.getKind())
-                .location(animal.getLocation())
-                .status(animal.getStatus())
-                .build();
+        var mapper = new ModelMapper();
+        return mapper.map(animal, AnimalDto.class);
     }
 }

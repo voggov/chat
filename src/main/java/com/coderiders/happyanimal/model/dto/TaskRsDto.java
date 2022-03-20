@@ -2,6 +2,7 @@ package com.coderiders.happyanimal.model.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class TaskRsDto {
     @NotNull
+    @Min(1)
     private Long id;
     @NotNull
     private String type;

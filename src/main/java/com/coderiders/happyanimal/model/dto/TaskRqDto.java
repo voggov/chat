@@ -2,6 +2,7 @@ package com.coderiders.happyanimal.model.dto;
 
 import lombok.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -20,5 +21,5 @@ public class TaskRqDto {
     @NotNull
     private String repeatType;
     @NotNull
-    private List<AnimalDto> animalDtoList;
+    private List<@Valid AnimalDto> animalDtoList;
 }

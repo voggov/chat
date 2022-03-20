@@ -1,6 +1,8 @@
 package com.coderiders.happyanimal.service;
 
 import com.coderiders.happyanimal.exceptions.NotFoundException;
+import com.coderiders.happyanimal.mapper.AnimalMapper;
+import com.coderiders.happyanimal.mapper.TaskMapper;
 import com.coderiders.happyanimal.model.Animal;
 import com.coderiders.happyanimal.model.Task;
 import com.coderiders.happyanimal.model.User;
@@ -8,16 +10,11 @@ import com.coderiders.happyanimal.model.dto.AnimalDto;
 import com.coderiders.happyanimal.model.dto.TaskRsDto;
 import com.coderiders.happyanimal.repository.AnimalRepository;
 import com.coderiders.happyanimal.repository.UserRepository;
-import com.coderiders.happyanimal.mapper.AnimalMapper;
-import com.coderiders.happyanimal.mapper.TaskMapper;
-import org.apache.catalina.connector.Request;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AnimalService {
@@ -53,23 +50,29 @@ public class AnimalService {
     public List<AnimalDto> getAllByUserId(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_ANIMAL));
-        List<Animal> allByUser = Optional.ofNullable(animalRepository.findAllByUser(user)).orElseThrow(
-                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_ANIMAL));
+        List<Animal> allByUser = animalRepository.findAllByUser(user);
+        if (allByUser.isEmpty()) {
+            throw new NotFoundException(ERROR_MESSAGE_NOT_FOUND_ANIMAL);
+        }
         return animalMapper.toDtoList(allByUser);
     }
 
     @Transactional
     public List<AnimalDto> getAll() {
-        List<Animal> allAnimals = Optional.ofNullable(animalRepository.findAll()).orElseThrow(
-                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_ANIMAL));
+        List<Animal> allAnimals = animalRepository.findAll();
+        if (allAnimals.isEmpty()) {
+            throw new NotFoundException(ERROR_MESSAGE_NOT_FOUND_ANIMAL);
+        }
         return animalMapper.toDtoList(allAnimals);
     }
 
     @Transactional
     public List<TaskRsDto> getAnimalTasks(Long animalId) {
         Animal animal = getById(animalId);
-        List<Task> taskList = Optional.ofNullable(animal.getTasks()).orElseThrow(
-                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_TASKS));
+        List<Task> taskList = animal.getTasks();
+        if (taskList.isEmpty()) {
+            throw new NotFoundException(ERROR_MESSAGE_NOT_FOUND_TASKS);
+        }
         return taskMapper.mapTaskListToRsDto(taskList);
     }
 
