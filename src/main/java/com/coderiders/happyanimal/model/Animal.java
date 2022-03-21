@@ -27,7 +27,7 @@ public class Animal {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "animals")
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Task> tasks;
 
     @Column(name = "age")
