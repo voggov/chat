@@ -2,7 +2,8 @@ package com.coderiders.happyanimal.model.dto;
 
 import lombok.*;
 
-import java.util.List;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -10,15 +11,27 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnimalDto {
+    @NotNull
+    @Min(1)
     private Long id;
+    @NotNull
     private String name;
+    @NotNull
     private String gender;
+    @NotNull
     private int age;
+    @NotNull
     private int height;
+    @NotNull
     private double weight;
+    @NotNull
     private String animalClass;
+    @NotNull
     private String squad;
+    @NotNull
     private String kind;
+    @NotNull
     private String location;
+    @NotNull
     private String status;
 }

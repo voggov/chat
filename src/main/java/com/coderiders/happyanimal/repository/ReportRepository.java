@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface ReportRepository extends JpaRepository<Report, Long>{
-    Optional<Report> findFirstById(Long id);
+    Optional<Report> findById(Long id);
 
     List<Report> findByDate(String tag);
 

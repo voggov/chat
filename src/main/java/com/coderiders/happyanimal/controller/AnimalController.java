@@ -6,10 +6,15 @@ import com.coderiders.happyanimal.service.AnimalService;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/animals")
 public class AnimalController {
@@ -20,9 +25,14 @@ public class AnimalController {
         this.animalService = animalService;
     }
 
-    @PostMapping
-    public void addAnimal(@RequestBody AnimalDto animalDto, @RequestParam(required = false) Long userId) {
-        animalService.saveAnimal(animalDto, userId);
+    @PostMapping()
+    public ResponseEntity addAnimal(@Valid @RequestBody AnimalDto animalDto, @RequestParam(required = false) Long userId) {
+        var created = animalService.saveAnimal(animalDto, userId);
+        var url = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(created.getId())
+                .toUri();
+        return ResponseEntity.created(url).body(created);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

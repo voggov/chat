@@ -2,6 +2,7 @@ package com.coderiders.happyanimal.service;
 
 import com.coderiders.happyanimal.model.dto.WeatherFromJson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,8 +16,8 @@ public class WeatherService {
         this.restTemplate = restTemplate;
     }
 
-    public WeatherFromJson getWeatherForecast(int countOfDays) {
-        return restTemplate.getForObject(
+    public ResponseEntity<WeatherFromJson> getWeatherForecast(int countOfDays) {
+        return restTemplate.getForEntity(
                 "http://api.weatherapi.com/v1/forecast.json?key=" +
                         API_KEY +
                         "&q=Penza&" +
