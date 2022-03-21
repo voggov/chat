@@ -21,5 +21,5 @@ public class TaskRqDto {
     @NotNull
     private String repeatType;
     @NotNull
-    private List<@Valid AnimalDto> animalDtoList;
+    private @Valid AnimalDto animalDto;
 }
