@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
-    Optional<User> findFirstById(Long id);
+    Optional<User> findById(Long id);
     List<User> getAllByNameContainsIgnoreCase(String name);
     List<User> getAllByUserRole(UserRole role);
 }

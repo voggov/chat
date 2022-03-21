@@ -1,17 +1,17 @@
 package com.coderiders.happyanimal.service;
 
 import com.coderiders.happyanimal.exceptions.NotFoundException;
+import com.coderiders.happyanimal.mapper.ReportMapper;
 import com.coderiders.happyanimal.model.Report;
+import com.coderiders.happyanimal.model.User;
 import com.coderiders.happyanimal.model.dto.ReportDto;
 import com.coderiders.happyanimal.repository.ReportRepository;
 import com.coderiders.happyanimal.repository.UserRepository;
-import com.coderiders.happyanimal.service.mapper.ReportMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ReportService {
@@ -29,26 +29,31 @@ public class ReportService {
     }
 
     @Transactional
-    public void saveReport(ReportDto reportDto, Long userId) {
+    public ReportDto saveReport(ReportDto reportDto, Long userId) {
         Report report = reportMapper.toReport(reportDto);
-        report.setUser(Optional.ofNullable(userRepository.getById(userId)).orElseThrow(
-                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_REPORT)
-        ));
-        reportRepository.save(report);
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_REPORT));
+        report.setUser(user);
+        return reportMapper.toDto(reportRepository.save(report));
     }
 
     @Transactional
     public List<ReportDto> getAllReportsDTO() {
-        return reportMapper.toDtoList(Optional.ofNullable(reportRepository.findAll()).orElseThrow(
-                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_REPORT)));
+        List<Report> allReports = reportRepository.findAll();
+        if (allReports.isEmpty()) {
+            throw new NotFoundException(ERROR_MESSAGE_NOT_FOUND_REPORT);
+        }
+        return reportMapper.toDtoList(allReports);
     }
 
     @Transactional
     public List<ReportDto> getReportDTOByUserId(Long userId) {
-        return reportMapper.toDtoList(
-                Optional.ofNullable(reportRepository.findAllByUser(
-                        Optional.ofNullable(userRepository.getById(userId)).orElseThrow(
-                                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_USER)))).orElseThrow(
-                        () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_REPORT)));
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_USER));
+        List<Report> reportList = reportRepository.findAllByUser(user);
+        if (reportList.isEmpty()) {
+            throw new NotFoundException(ERROR_MESSAGE_NOT_FOUND_REPORT);
+        }
+        return reportMapper.toDtoList(reportList);
     }
 }

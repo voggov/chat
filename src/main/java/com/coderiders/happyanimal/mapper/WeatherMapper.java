@@ -1,4 +1,4 @@
-package com.coderiders.happyanimal.service.mapper;
+package com.coderiders.happyanimal.mapper;
 
 import com.coderiders.happyanimal.model.dto.ForecastDayDto;
 import com.coderiders.happyanimal.model.dto.WeatherDto;

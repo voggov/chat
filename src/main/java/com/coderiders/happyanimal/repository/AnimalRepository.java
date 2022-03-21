@@ -11,6 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface AnimalRepository extends JpaRepository<Animal, Long>, CrudRepository<Animal, Long> {
-    Optional<Animal> findFirstById(Long id);
+    Optional<Animal> findById(Long id);
     List<Animal> findAllByUser(User user);
 }

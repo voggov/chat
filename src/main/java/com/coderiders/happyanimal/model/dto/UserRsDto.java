@@ -4,6 +4,7 @@ import com.coderiders.happyanimal.enums.Gender;
 import com.coderiders.happyanimal.enums.UserRole;
 import lombok.*;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class UserRsDto {
     @NotNull
+    @Min(1)
     private Long id;
     @NotNull
     private String name;
