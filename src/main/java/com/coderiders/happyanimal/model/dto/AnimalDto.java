@@ -2,6 +2,7 @@ package com.coderiders.happyanimal.model.dto;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -34,4 +35,6 @@ public class AnimalDto {
     private String location;
     @NotNull
     private String status;
+    private String featuresOfKeeping;
+    private String externalFeatures;
 }

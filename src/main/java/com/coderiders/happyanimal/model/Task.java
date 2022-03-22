@@ -29,7 +29,7 @@ public class Task {
     @Column(name = "repeat_type")
     private String repeatType;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "animal_id")
     private Animal animal;
 }

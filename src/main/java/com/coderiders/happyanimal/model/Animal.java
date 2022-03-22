@@ -53,4 +53,10 @@ public class Animal {
 
     @Column
     private String status;
+
+    @Column(name = "features_of_keeping")
+    private String featuresOfKeeping;
+
+    @Column(name = "external_features")
+    private String externalFeatures;
 }

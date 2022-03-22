@@ -18,7 +18,7 @@ public class TaskMapper {
         var modelMapper = new ModelMapper();
         TypeMap<Task, TaskRqDto> typeMap = modelMapper.createTypeMap(Task.class, TaskRqDto.class);
         typeMap.addMappings(
-                mapper -> mapper.map(Task::getAnimals, TaskRqDto::setAnimalDtoList));
+                mapper -> mapper.map(Task::getAnimal, TaskRqDto::setAnimalDto));
         return modelMapper.map(task, TaskRqDto.class);
     }
 
@@ -35,7 +35,7 @@ public class TaskMapper {
         var modelMapper = new ModelMapper();
         TypeMap<TaskRqDto, Task> typeMap = modelMapper.createTypeMap(TaskRqDto.class, Task.class);
         typeMap.addMappings(
-                mapper -> mapper.map(TaskRqDto::getAnimalDtoList, Task::setAnimals));
+                mapper -> mapper.map(TaskRqDto::getAnimalDto, Task::setAnimal));
         return modelMapper.map(dto, Task.class);
     }
 
