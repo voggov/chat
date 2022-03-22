@@ -1,0 +1,30 @@
+version: "2"
+
+services:
+  db:
+    container_name: "happy_animal_db"
+    image: "postgres:14-alpine"
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: happyAnimal
+    volumes:
+      - /var/lib/postgresql/database:/var/lib/postgresql/database
+
+  app:
+    container_name: "application"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/happyAnimal
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SERVER_SERVLET_CONTEXT-PATH=/api
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
