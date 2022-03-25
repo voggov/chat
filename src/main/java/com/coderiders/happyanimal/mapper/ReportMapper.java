@@ -12,11 +12,7 @@ import java.util.stream.Collectors;
 @Component
 public class ReportMapper {
 
-    public List<ReportDto> toDtoList(List<Report> reportList) {
-        return reportList.stream().map(this::toDto).collect(Collectors.toList());
-    }
-
-    public ReportDto toDto(Report report) {
+    public ReportDto mapToDto(Report report) {
         var modelMapper = new ModelMapper();
         TypeMap<Report, ReportDto> typeMap = modelMapper.createTypeMap(Report.class, ReportDto.class);
         typeMap.addMappings(
@@ -24,7 +20,7 @@ public class ReportMapper {
         return modelMapper.map(report, ReportDto.class);
     }
 
-    public Report toReport(ReportDto reportDTO) {
+    public Report mapToReport(ReportDto reportDTO) {
         var modelMapper = new ModelMapper();
         TypeMap<ReportDto, Report> typeMap = modelMapper.createTypeMap(ReportDto.class, Report.class);
         typeMap.addMappings(

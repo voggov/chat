@@ -23,10 +23,6 @@ public class UserMapper {
         this.repository = repository;
     }
 
-    public List<UserRsDto> mapUserListToDtoList(List<User> users) {
-        return users.stream().map(this::mapToResponseDto).collect(Collectors.toList());
-    }
-
     @Transactional
     public User mapToUser(UserRsDto dto) {
         return repository.findById(dto.getId()).orElseThrow(
