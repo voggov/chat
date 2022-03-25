@@ -1,6 +1,5 @@
 package com.coderiders.happyanimal.model;
 
-import com.coderiders.happyanimal.enums.Gender;
 import com.coderiders.happyanimal.enums.UserRole;
 import lombok.*;
 
@@ -22,9 +21,11 @@ public class User {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "gender")
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "patronymic")
+    private String patronymic;
 
     @Column(name = "user_role")
     @Enumerated(EnumType.STRING)

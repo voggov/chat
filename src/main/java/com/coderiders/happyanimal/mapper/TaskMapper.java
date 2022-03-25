@@ -14,20 +14,12 @@ import java.util.stream.Collectors;
 @Component
 public class TaskMapper {
 
-    public TaskRqDto toRqDto(Task task) {
+    public TaskRqDto mapToRqDto(Task task) {
         var modelMapper = new ModelMapper();
         TypeMap<Task, TaskRqDto> typeMap = modelMapper.createTypeMap(Task.class, TaskRqDto.class);
         typeMap.addMappings(
                 mapper -> mapper.map(Task::getAnimal, TaskRqDto::setAnimalDto));
         return modelMapper.map(task, TaskRqDto.class);
-    }
-
-    public List<TaskRqDto> mapTaskListToRqDto(List<Task> taskList) {
-        return taskList.stream().map(this::toRqDto).collect(Collectors.toList());
-    }
-
-    public List<TaskRsDto> mapTaskListToRsDto(List<Task> taskList) {
-        return taskList.stream().map(this::toRsDto).collect(Collectors.toList());
     }
 
     @Transactional
@@ -40,7 +32,7 @@ public class TaskMapper {
     }
 
     @Transactional
-    public TaskRsDto toRsDto(Task task) {
+    public TaskRsDto mapToRsDto(Task task) {
         var modelMapper = new ModelMapper();
         return modelMapper.map(task, TaskRsDto.class);
     }

@@ -1,6 +1,5 @@
 package com.coderiders.happyanimal.model.dto;
 
-import com.coderiders.happyanimal.enums.Gender;
 import com.coderiders.happyanimal.enums.UserRole;
 import lombok.*;
 
@@ -15,7 +14,9 @@ public class UserRqDto {
     @NotNull
     private String name;
     @NotNull
-    private Gender gender;
+    private String lastName;
+    @NotNull
+    private String patronymic;
     @NotNull
     private int age;
     @NotNull

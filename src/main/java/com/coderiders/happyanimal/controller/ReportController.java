@@ -3,6 +3,8 @@ package com.coderiders.happyanimal.controller;
 import com.coderiders.happyanimal.model.dto.ReportDto;
 import com.coderiders.happyanimal.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +24,12 @@ public class ReportController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ReportDto> getAllReports() {
-        return reportService.getAllReportsDTO();
+    public Page<ReportDto> getAllReports(Pageable pageable) {
+        return reportService.getAllReportsDTO(pageable);
     }
 
-    @PostMapping()
-    public ResponseEntity<ReportDto> addReport(@Valid @RequestBody ReportDto reportDto, @RequestParam Long userId) {
+    @PostMapping
+    public ResponseEntity<ReportDto> addReport(@Valid @RequestBody ReportDto reportDto, Long userId) {
         var created = reportService.saveReport(reportDto, userId);
         var url = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -37,7 +39,7 @@ public class ReportController {
     }
 
     @GetMapping(path = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ReportDto> getReportsByUserId(@PathVariable Long userId) {
-        return reportService.getReportDTOByUserId(userId);
+    public Page<ReportDto> getReportsByUserId(@PathVariable Long userId, Pageable pageable) {
+        return reportService.getReportDTOByUserId(userId, pageable);
     }
 }

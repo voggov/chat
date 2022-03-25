@@ -4,6 +4,8 @@ import com.coderiders.happyanimal.model.dto.TaskRqDto;
 import com.coderiders.happyanimal.model.dto.TaskRsDto;
 import com.coderiders.happyanimal.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -33,12 +35,12 @@ public class TaskController {
     }
 
     @GetMapping(path = "/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<List<TaskRqDto>> getUserTasks(@PathVariable Long userId) {
-        return taskService.getByUserId(userId);
+    public Page<TaskRsDto> getUserTasks(@PathVariable Long userId, Pageable pageable) {
+        return taskService.getByUserId(userId, pageable);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<TaskRqDto> getAllTasks() {
-        return taskService.getAll();
+    public Page<TaskRsDto> getAllTasks(Pageable pageable) {
+        return taskService.getAll(pageable);
     }
 }

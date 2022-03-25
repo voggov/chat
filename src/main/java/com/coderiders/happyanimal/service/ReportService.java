@@ -8,6 +8,8 @@ import com.coderiders.happyanimal.model.dto.ReportDto;
 import com.coderiders.happyanimal.repository.ReportRepository;
 import com.coderiders.happyanimal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,30 +32,30 @@ public class ReportService {
 
     @Transactional
     public ReportDto saveReport(ReportDto reportDto, Long userId) {
-        Report report = reportMapper.toReport(reportDto);
+        Report report = reportMapper.mapToReport(reportDto);
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_REPORT));
         report.setUser(user);
-        return reportMapper.toDto(reportRepository.save(report));
+        return reportMapper.mapToDto(reportRepository.save(report));
     }
 
     @Transactional
-    public List<ReportDto> getAllReportsDTO() {
-        List<Report> allReports = reportRepository.findAll();
+    public Page<ReportDto> getAllReportsDTO(Pageable pageable) {
+        Page<Report> allReports = reportRepository.findAll(pageable);
         if (allReports.isEmpty()) {
             throw new NotFoundException(ERROR_MESSAGE_NOT_FOUND_REPORT);
         }
-        return reportMapper.toDtoList(allReports);
+        return allReports.map(reportMapper::mapToDto);
     }
 
     @Transactional
-    public List<ReportDto> getReportDTOByUserId(Long userId) {
+    public Page<ReportDto> getReportDTOByUserId(Long userId, Pageable pageable) {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_USER));
-        List<Report> reportList = reportRepository.findAllByUser(user);
+        Page<Report> reportList = reportRepository.findAllByUser(user, pageable);
         if (reportList.isEmpty()) {
             throw new NotFoundException(ERROR_MESSAGE_NOT_FOUND_REPORT);
         }
-        return reportMapper.toDtoList(reportList);
+        return reportList.map(reportMapper::mapToDto);
     }
 }
