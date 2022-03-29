@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnimalDto {
+public class AnimalRsDto {
     @NotNull
     @Min(1)
     private Long id;
