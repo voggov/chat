@@ -6,7 +6,8 @@ import com.coderiders.happyanimal.mapper.TaskMapper;
 import com.coderiders.happyanimal.model.Animal;
 import com.coderiders.happyanimal.model.Task;
 import com.coderiders.happyanimal.model.User;
-import com.coderiders.happyanimal.model.dto.AnimalDto;
+import com.coderiders.happyanimal.model.dto.AnimalRqDto;
+import com.coderiders.happyanimal.model.dto.AnimalRsDto;
 import com.coderiders.happyanimal.model.dto.TaskRsDto;
 import com.coderiders.happyanimal.repository.AnimalRepository;
 import com.coderiders.happyanimal.repository.UserRepository;
@@ -28,7 +29,6 @@ public class AnimalService {
     private final TaskMapper taskMapper;
     private static final String ERROR_MESSAGE_NOT_FOUND_ANIMAL = "Зверь не найден";
     private static final String ERROR_MESSAGE_NOT_FOUND_USER = "Пользователь не найден";
-    private static final String ERROR_MESSAGE_NOT_FOUND_TASKS = "Задач для этого животного не существует";
 
     @Autowired
     public AnimalService(AnimalRepository animalRepository,
@@ -42,8 +42,8 @@ public class AnimalService {
     }
 
     @Transactional
-    public AnimalDto saveAnimal(AnimalDto animalDto, Long userId) {
-        Animal animal = animalMapper.mapToAnimal(animalDto);
+    public AnimalRsDto saveAnimal(AnimalRqDto animalRqDto, Long userId) {
+        Animal animal = animalMapper.mapToAnimal(animalRqDto);
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_USER));
         animal.setUser(user);
@@ -51,7 +51,7 @@ public class AnimalService {
     }
 
     @Transactional
-    public Page<AnimalDto> getAllByUserId(Long userId, Pageable pageable) {
+    public Page<AnimalRsDto> getAllByUserId(Long userId, Pageable pageable) {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_ANIMAL));
         Page<Animal> allByUser = animalRepository.findAllByUser(user, pageable);
@@ -62,14 +62,15 @@ public class AnimalService {
     }
 
     @Transactional
-    public Page<AnimalDto> getAll(Pageable pageable) {
+    public Page<AnimalRsDto> getAll(Pageable pageable) {
         Page<Animal> allAnimals = animalRepository.findAll(pageable);
         return allAnimals.map(animalMapper::mapToDto);
     }
 
     @Transactional
     public Page<TaskRsDto> getAnimalAllTasks(Long animalId, Pageable pageable) {
-        Animal animal = getById(animalId);
+        Animal animal = animalRepository.findById(animalId).orElseThrow(
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_ANIMAL));
         List<Task> taskList = animal.getTasks();
         return new PageImpl<>(taskList.stream()
                 .map(taskMapper::mapToRsDto)
@@ -78,8 +79,9 @@ public class AnimalService {
     }
 
     @Transactional
-    public Animal getById(Long id) {
-        return animalRepository.findById(id).orElseThrow(
+    public AnimalRsDto getById(Long id) {
+        Animal animal = animalRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_ANIMAL));
+        return animalMapper.mapToDto(animal);
     }
 }

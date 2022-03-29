@@ -1,6 +1,7 @@
 package com.coderiders.happyanimal.controller;
 
-import com.coderiders.happyanimal.model.dto.AnimalDto;
+import com.coderiders.happyanimal.model.dto.AnimalRqDto;
+import com.coderiders.happyanimal.model.dto.AnimalRsDto;
 import com.coderiders.happyanimal.model.dto.TaskRsDto;
 import com.coderiders.happyanimal.service.AnimalService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -27,8 +28,8 @@ public class AnimalController {
     }
 
     @PostMapping
-    public ResponseEntity addAnimal(@Valid @RequestBody AnimalDto animalDto, @RequestParam(required = false) Long userId) {
-        var created = animalService.saveAnimal(animalDto, userId);
+    public ResponseEntity addAnimal(@Valid @RequestBody AnimalRqDto animalRqDto, @RequestParam(required = false) Long userId) {
+        var created = animalService.saveAnimal(animalRqDto, userId);
         var url = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(created.getId())
@@ -37,13 +38,13 @@ public class AnimalController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Page<AnimalDto> getAllAnimals(Pageable pageable) {
+    public Page<AnimalRsDto> getAllAnimals(Pageable pageable) {
         return animalService.getAll(pageable);
     }
 
     @GetMapping(path = "/{userId}")
-    public Page<AnimalDto> getUserAnimals(@PathVariable @Parameter(name = "User Id", example = "1") Long userId,
-                                          Pageable pageable) {
+    public Page<AnimalRsDto> getUserAnimals(@PathVariable @Parameter(name = "User Id", example = "1") Long userId,
+                                            Pageable pageable) {
         return animalService.getAllByUserId(userId, pageable);
     }
 

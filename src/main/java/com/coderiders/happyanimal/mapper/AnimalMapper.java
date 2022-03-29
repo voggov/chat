@@ -1,23 +1,26 @@
 package com.coderiders.happyanimal.mapper;
 
 import com.coderiders.happyanimal.model.Animal;
-import com.coderiders.happyanimal.model.dto.AnimalDto;
+import com.coderiders.happyanimal.model.dto.AnimalRqDto;
+import com.coderiders.happyanimal.model.dto.AnimalRsDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class AnimalMapper {
 
-    public Animal mapToAnimal(AnimalDto dto) {
+    public Animal mapToAnimal(AnimalRsDto dto) {
         var mapper = new ModelMapper();
         return mapper.map(dto, Animal.class);
     }
 
-    public AnimalDto mapToDto(Animal animal) {
+    public Animal mapToAnimal(AnimalRqDto dto) {
         var mapper = new ModelMapper();
-        return mapper.map(animal, AnimalDto.class);
+        return mapper.map(dto, Animal.class);
+    }
+
+    public AnimalRsDto mapToDto(Animal animal) {
+        var mapper = new ModelMapper();
+        return mapper.map(animal, AnimalRsDto.class);
     }
 }

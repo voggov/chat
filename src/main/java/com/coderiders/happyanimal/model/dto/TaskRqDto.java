@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Getter
 @Setter
@@ -21,5 +20,5 @@ public class TaskRqDto {
     @NotNull
     private String repeatType;
     @NotNull
-    private @Valid AnimalDto animalDto;
+    private @Valid AnimalRsDto animalRsDto;
 }
