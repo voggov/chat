@@ -27,7 +27,7 @@ public class ExhibitionService {
     @Transactional
     public ExhibitionRsDto saveExhibition(ExhibitionRqDto exhibitionRqDto) {
         Exhibition exhibition = exhibitionMapper.mapToExhibition(exhibitionRqDto);
-        return exhibitionMapper.mapToDto(exhibition);
+        return exhibitionMapper.mapToDto(exhibitionRepository.save(exhibition));
     }
 
     @Transactional
