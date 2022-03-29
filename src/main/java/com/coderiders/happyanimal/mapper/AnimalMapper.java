@@ -8,12 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AnimalMapper {
-
-    public Animal mapToAnimal(AnimalRsDto dto) {
-        var mapper = new ModelMapper();
-        return mapper.map(dto, Animal.class);
-    }
-
     public Animal mapToAnimal(AnimalRqDto dto) {
         var mapper = new ModelMapper();
         return mapper.map(dto, Animal.class);
