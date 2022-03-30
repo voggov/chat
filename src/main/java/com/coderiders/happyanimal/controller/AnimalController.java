@@ -28,8 +28,8 @@ public class AnimalController {
     }
 
     @PostMapping
-    public ResponseEntity addAnimal(@Valid @RequestBody AnimalRqDto animalRqDto, @RequestParam(required = false) Long userId) {
-        var created = animalService.saveAnimal(animalRqDto, userId);
+    public ResponseEntity<AnimalRsDto> addAnimal(@Valid @RequestBody AnimalRqDto animalRqDto) {
+        var created = animalService.saveAnimal(animalRqDto);
         var url = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(created.getId())

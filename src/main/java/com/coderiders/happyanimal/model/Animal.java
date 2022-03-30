@@ -39,14 +39,9 @@ public class Animal {
     @Column
     private double weight;
 
-    @Column
-    private String animalClass;
-
-    @Column
-    private String squad;
-
-    @Column
-    private String kind;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="animal_kind", nullable=false)
+    private AnimalKind animalKind;
 
     @Column
     private String location;

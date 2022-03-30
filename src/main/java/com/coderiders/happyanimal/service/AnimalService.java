@@ -42,11 +42,9 @@ public class AnimalService {
     }
 
     @Transactional
-    public AnimalRsDto saveAnimal(AnimalRqDto animalRqDto, Long userId) {
+    public AnimalRsDto saveAnimal(AnimalRqDto animalRqDto) {
         Animal animal = animalMapper.mapToAnimal(animalRqDto);
-        User user = userRepository.findById(userId).orElseThrow(
-                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_USER));
-        animal.setUser(user);
+
         return animalMapper.mapToDto(animalRepository.save(animal));
     }
 

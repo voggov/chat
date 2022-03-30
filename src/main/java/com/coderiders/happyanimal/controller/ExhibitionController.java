@@ -23,7 +23,7 @@ public class ExhibitionController {
     }
 
     @PostMapping
-    public ResponseEntity addExhibition(ExhibitionRqDto exhibitionRqDto) {
+    public ResponseEntity<ExhibitionRsDto> addExhibition(ExhibitionRqDto exhibitionRqDto) {
         var created = exhibitionService.saveExhibition(exhibitionRqDto);
         var url = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -38,7 +38,7 @@ public class ExhibitionController {
     }
 
     @GetMapping(path = "/{date}")
-    public ResponseEntity getExhibitionByDate(@PathVariable String date) {
+    public ResponseEntity<ExhibitionRsDto> getExhibitionByDate(@PathVariable String date) {
         var created = exhibitionService.findByDate(date);
         var url = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

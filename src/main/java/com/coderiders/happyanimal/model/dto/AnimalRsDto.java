@@ -26,15 +26,12 @@ public class AnimalRsDto {
     @NotNull
     private double weight;
     @NotNull
-    private String animalClass;
-    @NotNull
-    private String squad;
-    @NotNull
-    private String kind;
+    private AnimalKindDto animalKindDto;
     @NotNull
     private String location;
     @NotNull
     private String status;
     private String featuresOfKeeping;
     private String externalFeatures;
+    private UserRsDto userRsDto;
 }

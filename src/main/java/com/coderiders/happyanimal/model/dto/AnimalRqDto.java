@@ -21,15 +21,8 @@ public class AnimalRqDto {
     @NotNull
     private double weight;
     @NotNull
-    private String animalClass;
-    @NotNull
-    private String squad;
-    @NotNull
     private String kind;
-    @NotNull
-    private String location;
-    @NotNull
-    private String status;
+    private Long userId;
     private String featuresOfKeeping;
     private String externalFeatures;
 }
