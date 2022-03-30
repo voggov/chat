@@ -82,4 +82,15 @@ public class AnimalService {
                 () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_ANIMAL));
         return animalMapper.mapToDto(animal);
     }
+
+    @Transactional
+    public AnimalRsDto setUser(Long animalId, Long userId) {
+        Animal animal = animalRepository.findById(animalId).orElseThrow(
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_ANIMAL)
+        );
+        animal.setUser(userRepository.findById(userId).orElseThrow(
+                () -> new NotFoundException(ERROR_MESSAGE_NOT_FOUND_USER)
+        ));
+        return animalMapper.mapToDto(animalRepository.save(animal));
+    }
 }

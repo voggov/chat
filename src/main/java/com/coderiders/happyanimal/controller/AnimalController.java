@@ -53,4 +53,14 @@ public class AnimalController {
                                           Pageable pageable) {
         return animalService.getAnimalAllTasks(animalId, pageable);
     }
+
+    @PutMapping(path = "/{animalId}")
+    public AnimalRsDto setUser(@PathVariable Long animalId, @RequestParam Long userId) {
+        return animalService.setUser(animalId, userId);
+    }
+
+    @GetMapping(path = "/{animalId}")
+    public AnimalRsDto setUser(@PathVariable Long animalId) {
+        return animalService.getById(animalId);
+    }
 }
