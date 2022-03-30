@@ -4,23 +4,28 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnimalDto {
-    private Long id;
+public class AnimalRqDto {
+    @NotNull
     private String name;
+    @NotNull
     private String gender;
+    @NotNull
     private int age;
+    @NotNull
     private int height;
+    @NotNull
     private double weight;
-    private String animalClass;
-    private String squad;
+    @NotNull
     private String kind;
-    private String location;
-    private String status;
+    private Long userId;
+    private String featuresOfKeeping;
+    private String externalFeatures;
     private LocalDate localDate;
 }

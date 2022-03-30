@@ -23,8 +23,8 @@ public class Task {
     @Column(name = "type")
     private String type;
 
-   /* @Column(name = "date_time")
-    private String dateTime;*/
+    @Column(name = "date_time")
+    private String dateTime;
 
     @Column(name = "state")
     private String state;
@@ -44,4 +44,8 @@ public class Task {
 
     @Column(name = "date")
     private LocalDate localDate;
+
+    @ManyToOne
+    @JoinColumn(name = "animal_id")
+    private Animal animal;
 }

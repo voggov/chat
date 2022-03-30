@@ -28,7 +28,7 @@ public class Animal {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "animals")
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Task> tasks;
 
     @Column(name = "age")
@@ -40,20 +40,21 @@ public class Animal {
     @Column
     private double weight;
 
-    @Column
-    private String animalClass;
-
-    @Column
-    private String squad;
-
-    @Column
-    private String kind;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="animal_kind", nullable=false)
+    private AnimalKind animalKind;
 
     @Column
     private String location;
 
     @Column
     private String status;
+
+    @Column(name = "features_of_keeping")
+    private String featuresOfKeeping;
+
+    @Column(name = "external_features")
+    private String externalFeatures;
 
     @Column(name = "local_date")
     private LocalDate localDate;
